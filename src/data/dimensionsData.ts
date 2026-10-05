@@ -4,7 +4,7 @@ export const DIMENSIONS: DimensionInfo[] = [
   {
     id: 'governanca',
     numero: '01',
-    nome: 'Governança e institucionalização',
+    nome: 'Governança e Institucionalização',
     nomeCurto: 'Governança',
     indicadoresIds: ['I01', 'I02', 'I03'],
     finalidade: 'Verificar se IDE está incorporada à estrutura, normas e planejamento.',
@@ -40,7 +40,7 @@ export const DIMENSIONS: DimensionInfo[] = [
   {
     id: 'capacitacao',
     numero: '03',
-    nome: 'Capacitação e disseminação',
+    nome: 'Capacitação e Disseminação',
     nomeCurto: 'Capacitação',
     indicadoresIds: ['I09', 'I10', 'I11', 'I12'],
     finalidade: 'Aferir execução, alcance e efetividade das oficinas e capacitações.',
@@ -58,7 +58,7 @@ export const DIMENSIONS: DimensionInfo[] = [
   {
     id: 'representatividade',
     numero: '04',
-    nome: 'Representatividade e ambiente institucional',
+    nome: 'Representatividade e Ambiente Institucional',
     nomeCurto: 'Representatividade & Prevenção',
     indicadoresIds: ['I13', 'I14'],
     finalidade: 'Acompanhar diversidade da representação e mecanismos de prevenção.',
@@ -76,7 +76,7 @@ export const DIMENSIONS: DimensionInfo[] = [
   {
     id: 'cooperacao',
     numero: '05',
-    nome: 'Cooperação e difusão',
+    nome: 'Cooperação e Difusão',
     nomeCurto: 'Cooperação',
     indicadoresIds: ['I15'],
     finalidade: 'Mensurar compartilhamento de práticas e evidências entre partícipes.',
