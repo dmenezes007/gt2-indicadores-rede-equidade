@@ -59,7 +59,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
   ];
 
   return (
-    <section id="analise" className="scroll-mt-24 py-10 lg:py-14 border-b border-stone-200/80 dark:border-stone-800/80">
+    <section id="analise" className="design-section design-section--analytics scroll-mt-24 py-12 lg:py-20 border-b border-stone-200/80 dark:border-stone-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
@@ -80,7 +80,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 animate-in fade-in duration-200">
             {/* Distribuição por Dimensão */}
-            <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 flex flex-col justify-between shadow-xs">
+            <div className="analytics-card rounded-[1.75rem] border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 p-6 flex flex-col justify-between shadow-xs">
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
                   <h3 className="text-sm font-bold text-stone-900 dark:text-white flex items-center gap-2">
@@ -118,7 +118,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
             </div>
 
             {/* Periodicidade e Tipologia */}
-            <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 flex flex-col justify-between shadow-xs">
+            <div className="analytics-card rounded-[1.75rem] border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 p-6 flex flex-col justify-between shadow-xs">
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
                   <h3 className="text-sm font-bold text-stone-900 dark:text-white flex items-center gap-2">
@@ -178,7 +178,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
           </div>
 
         {/* Matriz de Cruzamento */}
-          <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 shadow-xs overflow-x-auto animate-in fade-in duration-200">
+          <div className="analytics-card analytics-matrix rounded-[1.75rem] border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 p-6 shadow-xs overflow-x-auto animate-in fade-in duration-200">
             <div className="mb-4">
               <h3 className="text-base font-bold text-stone-900 dark:text-white flex items-center gap-2"><span className="w-7 h-7 rounded-md bg-teal-600 flex items-center justify-center shrink-0"><BarChart3 className="w-4 h-4 text-white" /></span><span>Matriz de Cruzamento</span></h3>
               <p className="text-xs text-stone-500 mt-1">
@@ -190,7 +190,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
               <thead>
                 <tr className="border-b border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-800/50">
                   <th className="py-2.5 px-3 text-left font-semibold text-stone-700 dark:text-stone-300">
-                    Dimensão Estratégica
+                    Dimensão
                   </th>
                   {categoryTypes.map((cat) => (
                     <th
