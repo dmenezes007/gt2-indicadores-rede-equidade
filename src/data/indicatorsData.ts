@@ -3,7 +3,7 @@ import { Indicator } from '../types/indicators';
 export const INDICATORS: Indicator[] = [
   {
     id: 'I01',
-    dimensao: 'Governança e institucionalização',
+    dimensao: 'Governança e Institucionalização',
     dimensaoId: 'governanca',
     indicador: 'Índice de institucionalização de IDE',
     definicao: 'Percentual de instituições partícipes que possuem política/compromisso formal de IDE com foco em gênero e raça.',
@@ -24,7 +24,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I02',
-    dimensao: 'Governança e institucionalização',
+    dimensao: 'Governança e Institucionalização',
     dimensaoId: 'governanca',
     indicador: 'Índice de governança especializada em IDE',
     definicao: 'Percentual de partícipes com unidade, comitê, comissão, GT ou especialista formalmente incumbido da agenda de IDE.',
@@ -45,7 +45,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I03',
-    dimensao: 'Governança e institucionalização',
+    dimensao: 'Governança e Institucionalização',
     dimensaoId: 'governanca',
     indicador: 'Índice de integração de IDE ao planejamento',
     definicao: 'Percentual de partícipes cujo planejamento estratégico, plano de gestão ou plano de ação contempla expressamente diversidade, equidade e inclusão.',
@@ -171,7 +171,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I09',
-    dimensao: 'Capacitação e disseminação',
+    dimensao: 'Capacitação e Disseminação',
     dimensaoId: 'capacitacao',
     indicador: 'Cumprimento da meta de oficinas do Modelo IDE',
     definicao: 'Grau de execução da meta de oferta de duas oficinas de aplicação do Modelo IDE.',
@@ -192,7 +192,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I10',
-    dimensao: 'Capacitação e disseminação',
+    dimensao: 'Capacitação e Disseminação',
     dimensaoId: 'capacitacao',
     indicador: 'Cumprimento da meta de capacitações em IDE',
     definicao: 'Grau de execução da meta de oferta de quatro ações de capacitação em IDE para servidores públicos.',
@@ -213,7 +213,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I11',
-    dimensao: 'Capacitação e disseminação',
+    dimensao: 'Capacitação e Disseminação',
     dimensaoId: 'capacitacao',
     indicador: 'Alcance das ações de capacitação em IDE',
     definicao: 'Número de participações e cobertura institucional nas oficinas e capacitações promovidas pelo GT2.',
@@ -234,7 +234,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I12',
-    dimensao: 'Capacitação e disseminação',
+    dimensao: 'Capacitação e Disseminação',
     dimensaoId: 'capacitacao',
     indicador: 'Índice de efetividade percebida das capacitações',
     definicao: 'Percentual de participantes que avaliam que a ação ampliou sua capacidade de aplicar conceitos ou instrumentos de IDE no trabalho.',
@@ -255,7 +255,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I13',
-    dimensao: 'Representatividade e participação',
+    dimensao: 'Representatividade e Ambiente Institucional',
     dimensaoId: 'representatividade',
     indicador: 'Índice de diversidade na representação da Rede',
     definicao: 'Percentual de instituições cujas indicações de titular e suplente observam, quando possível e mediante autodeclaração voluntária, a diversidade indicada no ACT.',
@@ -276,7 +276,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I14',
-    dimensao: 'Ambiente institucional e prevenção',
+    dimensao: 'Representatividade e Ambiente Institucional',
     dimensaoId: 'representatividade',
     indicador: 'Cobertura de mecanismos de prevenção e tratamento da discriminação',
     definicao: 'Percentual de partícipes que possuem compromisso formal, programa preventivo e/ou protocolo divulgado para tratamento de discriminação e desrespeito a direitos relacionados a gênero e raça.',
@@ -297,7 +297,7 @@ export const INDICATORS: Indicator[] = [
   },
   {
     id: 'I15',
-    dimensao: 'Cooperação e difusão',
+    dimensao: 'Cooperação e Difusão',
     dimensaoId: 'cooperacao',
     indicador: 'Índice de compartilhamento de práticas e evidências em IDE',
     definicao: 'Percentual de partícipes que registraram ao menos uma prática, normativo, pesquisa, ferramenta ou resultado qualificado no repositório da Rede no período.',
