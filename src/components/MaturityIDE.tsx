@@ -4,7 +4,7 @@ import {
   CheckCircle,
   ArrowUpRight,
 } from 'lucide-react';
-import { IDE_REQUIREMENTS } from '../data/cycleData';
+import { IDE_REQUIREMENTS, IDE_MODEL_STRUCTURE } from '../data/cycleData';
 import { INDICATORS } from '../data/indicatorsData';
 import { Indicator } from '../types/indicators';
 
@@ -34,15 +34,10 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
               Maturidade no Modelo IDE
             </h2>
             <p className="mt-2 text-sm text-stone-600 dark:text-stone-400 max-w-3xl">
-              Estruturação das 3 escalas do Modelo IDE, totalizando 69 requisitos institucionais de autoavaliação continuada.
-              Cada requisito representa um critério verificável de maturidade institucional. A organização registra seu atendimento
-              no instrumento de autoavaliação e, a partir do conjunto de requisitos cumpridos em cada escala, forma-se a linha de base
-              para acompanhar a evolução da maturidade nos ciclos seguintes.
+              O Modelo IDE é estruturado em 3 dimensões e 10 temas, reunindo 38 requisitos institucionais. Cada requisito é respondido com “Sim” ou “Não” nas categorias a que se aplica — Diversidade, Gênero e/ou Raça — e o resultado é calculado pela soma das respostas “Sim”.
             </p>
             <div className="mt-3 max-w-3xl rounded-xl border border-teal-200/70 dark:border-teal-900/60 bg-teal-50/60 dark:bg-teal-950/20 px-4 py-3 text-xs text-stone-700 dark:text-stone-300 leading-relaxed">
-              <strong className="text-teal-800 dark:text-teal-300">Como ler os requisitos:</strong> os blocos numerados abaixo representam
-              os requisitos que compõem cada escala — 7 em Diversidade, 31 em Gênero e 31 em Raça. Os eixos apresentados no detalhamento
-              metodológico organizam tematicamente a leitura desses requisitos; não substituem o enunciado integral do Manual do Modelo IDE.
+              <strong className="text-teal-800 dark:text-teal-300">Como funciona:</strong> os 38 requisitos são as perguntas do instrumento oficial. Nem todas as perguntas se aplicam às três categorias. Por isso, o mesmo conjunto de requisitos produz três escalas de resultado: Diversidade (0–7), Gênero (0–31) e Raça (0–31).
             </div>
           </div>
 
@@ -86,7 +81,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 {/* Dot Matrix Waffle: 7 blocks */}
                 <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800">
                   <div className="flex justify-between text-[11px] text-stone-500 mb-2">
-                    <span>Matriz de 7 Requisitos</span>
+                    <span>Escala 0–7</span>
                     <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
                   </div>
                   <div className="grid grid-cols-7 gap-1.5">
@@ -94,7 +89,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                       <div
                         key={i}
                         className="h-7 rounded border border-teal-200 dark:border-teal-800/60 bg-teal-50/70 dark:bg-teal-950/30 flex items-center justify-center text-[10px] font-mono text-teal-800 dark:text-teal-300 font-medium"
-                        title={`Requisito ${i + 1} de Diversidade`}
+                        title={`Posição ${i + 1} da escala de Diversidade`}
                       >
                         {i + 1}
                       </div>
@@ -153,7 +148,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 {/* Dot Matrix Waffle: 31 blocks */}
                 <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800">
                   <div className="flex justify-between text-[11px] text-stone-500 mb-2">
-                    <span>Matriz de 31 Requisitos</span>
+                    <span>Escala 0–31</span>
                     <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
                   </div>
                   <div className="grid grid-cols-8 sm:grid-cols-10 gap-1">
@@ -161,7 +156,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                       <div
                         key={i}
                         className="h-5 rounded-xs border border-indigo-200 dark:border-indigo-800/60 bg-indigo-50/70 dark:bg-indigo-950/30 flex items-center justify-center text-[9px] font-mono text-indigo-800 dark:text-indigo-300"
-                        title={`Requisito ${i + 1} de Gênero`}
+                        title={`Posição ${i + 1} da escala de Gênero`}
                       >
                         {i + 1}
                       </div>
@@ -228,7 +223,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                       <div
                         key={i}
                         className="h-5 rounded-xs border border-amber-200 dark:border-amber-800/60 bg-amber-50/70 dark:bg-amber-950/30 flex items-center justify-center text-[9px] font-mono text-amber-800 dark:text-amber-300"
-                        title={`Requisito ${i + 1} de Raça`}
+                        title={`Posição ${i + 1} da escala de Raça`}
                       >
                         {i + 1}
                       </div>
@@ -265,7 +260,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                       Detalhamento Metodológico da Escala
                     </span>
                     <h4 className="text-base font-bold text-stone-900 dark:text-white">
-                      {IDE_REQUIREMENTS[activeCategory].nome} ({IDE_REQUIREMENTS[activeCategory].totalRequisitos} requisitos)
+                      {IDE_REQUIREMENTS[activeCategory].nome} ({IDE_REQUIREMENTS[activeCategory].totalItens} requisitos)
                     </h4>
                   </div>
                   <span className="text-xs px-2.5 py-1 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 font-medium">
@@ -276,20 +271,18 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 <p className="mt-3 text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
                   {IDE_REQUIREMENTS[activeCategory].descricao}
                 </p>
-
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-                  {IDE_REQUIREMENTS[activeCategory].eixos.map((eixo, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2 p-2 rounded-lg bg-stone-50 dark:bg-stone-800/60 border border-stone-200/60 dark:border-stone-700/60"
-                    >
-                      <CheckCircle className="w-3.5 h-3.5 text-teal-600 dark:text-teal-400 shrink-0" />
-                      <span className="text-stone-800 dark:text-stone-200 text-xs">
-                        {eixo}
-                      </span>
+                <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
+                  {IDE_MODEL_STRUCTURE.dimensoes.map((dimensao) => (
+                    <div key={dimensao.nome} className="rounded-lg border border-stone-200 dark:border-stone-700 p-3 bg-stone-50 dark:bg-stone-800/60">
+                      <div className="text-xs font-bold text-stone-900 dark:text-white">{dimensao.nome}</div>
+                      <div className="mt-1 text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
+                        {dimensao.temas.join(' • ')}
+                      </div>
                     </div>
                   ))}
                 </div>
+
+
               </div>
 
               {/* I08 Longitudinal Evolution Box (4 cols) */}
