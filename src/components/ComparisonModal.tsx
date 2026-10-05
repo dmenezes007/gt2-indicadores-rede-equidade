@@ -1,7 +1,6 @@
 import React from 'react';
 import { X, GitCompare, Check, AlertCircle, ArrowRight } from 'lucide-react';
 import { Indicator } from '../types/indicators';
-import { getPriorityBadgeClass } from '../utils/helpers';
 
 interface ComparisonModalProps {
   indicators: Indicator[];
