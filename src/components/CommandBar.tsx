@@ -37,7 +37,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
   const activeChips: { label: string; onRemove: () => void }[] = [];
 
   filters.dimensoes.forEach((dim) => {
-    const dimName = DIMENSIONS.find((d) => d.id === dim)?.nomeCurto || dim;
+    const dimName = DIMENSIONS.find((d) => d.id === dim)?.nome || dim;
     activeChips.push({
       label: `Dimensão: ${dimName}`,
       onRemove: () =>
@@ -151,7 +151,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
             {/* Dimensão Filter */}
             <div>
               <span className="font-semibold text-stone-700 dark:text-stone-300 mb-1.5 block uppercase tracking-wider text-[10px]">
-                Dimensão Estratégica
+                Dimensão
               </span>
               <div className="flex flex-wrap gap-1.5">
                 {DIMENSIONS.map((dim) => {
@@ -167,7 +167,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
                       }`}
                     >
                       {active && <Check className="w-3 h-3" />}
-                      <span>{dim.nomeCurto}</span>
+                      <span>{dim.nome}</span>
                     </button>
                   );
                 })}
