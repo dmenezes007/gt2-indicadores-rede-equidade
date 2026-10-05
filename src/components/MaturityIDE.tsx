@@ -68,7 +68,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Scale 1: Diversidade (7 requisitos) - I05 */}
               <div
-                className={`ide-scale-card cursor-pointer relative overflow-hidden rounded-[1.75rem] border p-6 bg-white dark:bg-stone-900 transition-all border-teal-200 dark:border-teal-900/70 hover:border-teal-500 shadow-sm`}
+                className={`ide-scale-card cursor-pointer relative overflow-visible rounded-[1.75rem] border p-6 bg-white dark:bg-stone-900 transition-all border-teal-200 dark:border-teal-900/70 hover:border-teal-500 shadow-sm`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300">
@@ -120,7 +120,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
 
               {/* Scale 2: Gênero (31 requisitos) - I06 */}
               <div
-                className={`ide-scale-card cursor-pointer relative overflow-hidden rounded-[1.75rem] border p-6 bg-white dark:bg-stone-900 transition-all border-indigo-200 dark:border-indigo-900/70 hover:border-indigo-500 shadow-sm`}
+                className={`ide-scale-card cursor-pointer relative overflow-visible rounded-[1.75rem] border p-6 bg-white dark:bg-stone-900 transition-all border-indigo-200 dark:border-indigo-900/70 hover:border-indigo-500 shadow-sm`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300">
@@ -172,7 +172,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
 
               {/* Scale 3: Raça (31 requisitos) - I07 */}
               <div
-                className={`ide-scale-card cursor-pointer relative overflow-hidden rounded-[1.75rem] border p-6 bg-white dark:bg-stone-900 transition-all border-amber-200 dark:border-amber-900/70 hover:border-amber-500 shadow-sm`}
+                className={`ide-scale-card cursor-pointer relative overflow-visible rounded-[1.75rem] border p-6 bg-white dark:bg-stone-900 transition-all border-amber-200 dark:border-amber-900/70 hover:border-amber-500 shadow-sm`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">
@@ -222,7 +222,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 </div>
               </div>
 
-              <div className="ide-scale-card relative overflow-hidden rounded-[1.75rem] border border-sky-200 dark:border-sky-900/70 bg-white dark:bg-stone-900 p-6 shadow-sm hover:border-sky-500 transition-all flex flex-col justify-between">
+              <div className="ide-scale-card relative overflow-visible rounded-[1.75rem] border border-sky-200 dark:border-sky-900/70 bg-white dark:bg-stone-900 p-6 shadow-sm hover:border-sky-500 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300">I08 • EVOLUÇÃO LONGITUDINAL</span>
