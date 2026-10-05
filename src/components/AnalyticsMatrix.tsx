@@ -1,8 +1,8 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   ArrowUpDown, ArrowUp, ArrowDown, Search, SlidersHorizontal, Download,
   GitCompare, FileText, CheckSquare, Square, ChevronDown, ChevronUp,
-  ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight, Table as TableIcon,
+  Table as TableIcon,
   X, Layers3,
 } from 'lucide-react';
 import { Indicator } from '../types/indicators';
@@ -22,8 +22,6 @@ interface AnalyticsMatrixProps {
 type SortField = 'id' | 'indicador' | 'dimensao' | 'tipo' | 'periodicidade' | 'prioridade' | 'nucleoRecomendado' | 'responsavel';
 type SortDirection = 'asc' | 'desc';
 
-const PAGE_OPTIONS = [5, 10, 20, 50];
-
 export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
   indicators, onOpenIndicator, selectedIndicators, onToggleSelect, onSelectAll,
   onClearSelection, onOpenComparison, onOpenReportWithSelected,
@@ -36,8 +34,6 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
   const [showExtraColumns, setShowExtraColumns] = useState(false);
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-  const [page, setPage] = useState(1);
 
   const dimensions = useMemo(() => Array.from(new Set(indicators.map(i => i.dimensao))).sort(), [indicators]);
   const priorities = useMemo(() => Array.from(new Set(indicators.map(i => i.prioridade))), [indicators]);
@@ -68,13 +64,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
     return result;
   }, [indicators, localSearch, dimensionFilter, priorityFilter, periodicityFilter, sortField, sortDirection]);
 
-  useEffect(() => setPage(1), [localSearch, dimensionFilter, priorityFilter, periodicityFilter, itemsPerPage]);
-
-  const totalPages = Math.max(1, Math.ceil(processedIndicators.length / itemsPerPage));
-  useEffect(() => { if (page > totalPages) setPage(totalPages); }, [page, totalPages]);
-  const start = (page - 1) * itemsPerPage;
-  const pageIndicators = processedIndicators.slice(start, start + itemsPerPage);
-  const allPageSelected = pageIndicators.length > 0 && pageIndicators.every(i => selectedIndicators.includes(i.id));
+  const allFilteredSelected = processedIndicators.length > 0 && processedIndicators.every(i => selectedIndicators.includes(i.id));
   const hasLocalFilters = !!localSearch || dimensionFilter !== 'todas' || priorityFilter !== 'todas' || periodicityFilter !== 'todas';
 
   const handleSort = (field: SortField) => {
@@ -85,9 +75,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
     ? <ArrowUpDown className="w-3 h-3 opacity-45" />
     : sortDirection === 'asc' ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />;
 
-  const toggleSelectPage = () => allPageSelected
-    ? onSelectAll(selectedIndicators.filter(id => !pageIndicators.some(i => i.id === id)))
-    : onSelectAll(Array.from(new Set([...selectedIndicators, ...pageIndicators.map(i => i.id)])));
+  const toggleSelectAll = () => allFilteredSelected ? onClearSelection() : onSelectAll(processedIndicators.map(i => i.id));
 
   const toggleExpanded = (id: string) => setExpandedRows(prev =>
     prev.includes(id) ? prev.filter(x => x !== id) : [...prev, id]
@@ -170,11 +158,11 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
         )}
 
         <div className="rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-sm overflow-hidden">
-          <div className="overflow-x-auto max-h-[720px]">
+          <div className="overflow-x-auto">
             <table className="min-w-full text-xs text-left border-separate border-spacing-0">
               <thead className="sticky top-0 z-20 bg-stone-50 dark:bg-stone-950 text-stone-600 dark:text-stone-400 shadow-[0_1px_0_rgba(0,0,0,.08)]">
                 <tr>
-                  <th className="py-3 px-2 w-9 text-center"><button onClick={toggleSelectPage} title="Selecionar página">{allPageSelected ? <CheckSquare className="w-4 h-4" /> : <Square className="w-4 h-4" />}</button></th>
+                  <th className="py-3 px-2 w-9 text-center"><button onClick={toggleSelectAll} title="Selecionar todos">{allFilteredSelected ? <CheckSquare className="w-4 h-4" /> : <Square className="w-4 h-4" />}</button></th>
                   <th className="py-3 px-1 w-8" />
                   <SortHeader field="id">ID</SortHeader>
                   <SortHeader field="indicador" className="min-w-[260px]">Indicador</SortHeader>
@@ -189,7 +177,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
                 </tr>
               </thead>
               <tbody className="text-stone-700 dark:text-stone-300">
-                {pageIndicators.map(ind => {
+                {processedIndicators.map(ind => {
                   const isSelected = selectedIndicators.includes(ind.id);
                   const isExpanded = expandedRows.includes(ind.id);
                   const priorityStyle = getPriorityBadgeClass(ind.prioridade);
@@ -221,27 +209,14 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
                     </tr>}
                   </React.Fragment>;
                 })}
-                {pageIndicators.length === 0 && <tr><td colSpan={13} className="py-14 text-center text-stone-500">Nenhum indicador corresponde aos filtros aplicados.</td></tr>}
+                {processedIndicators.length === 0 && <tr><td colSpan={13} className="py-14 text-center text-stone-500">Nenhum indicador corresponde aos filtros aplicados.</td></tr>}
               </tbody>
             </table>
           </div>
 
-          <div className="p-3 sm:p-4 bg-stone-50 dark:bg-stone-950/60 border-t border-stone-200 dark:border-stone-800 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-stone-500">
-            <div className="flex items-center gap-3">
-              <span>{processedIndicators.length ? `${start + 1}–${Math.min(start + itemsPerPage, processedIndicators.length)} de ${processedIndicators.length}` : '0 registros'}</span>
-              <label className="flex items-center gap-2">Itens por página
-                <select value={itemsPerPage} onChange={e => setItemsPerPage(Number(e.target.value))} className="bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 rounded-lg px-2 py-1">
-                  {PAGE_OPTIONS.map(v => <option key={v} value={v}>{v}</option>)}
-                </select>
-              </label>
-            </div>
-            <div className="flex items-center gap-1">
-              <button onClick={() => setPage(1)} disabled={page === 1} className="p-1.5 rounded-lg border border-stone-200 dark:border-stone-800 disabled:opacity-30"><ChevronsLeft className="w-3.5 h-3.5" /></button>
-              <button onClick={() => setPage(p => Math.max(1, p - 1))} disabled={page === 1} className="p-1.5 rounded-lg border border-stone-200 dark:border-stone-800 disabled:opacity-30"><ChevronLeft className="w-3.5 h-3.5" /></button>
-              <span className="px-3 font-semibold text-stone-700 dark:text-stone-300">Página {page} de {totalPages}</span>
-              <button onClick={() => setPage(p => Math.min(totalPages, p + 1))} disabled={page === totalPages} className="p-1.5 rounded-lg border border-stone-200 dark:border-stone-800 disabled:opacity-30"><ChevronRight className="w-3.5 h-3.5" /></button>
-              <button onClick={() => setPage(totalPages)} disabled={page === totalPages} className="p-1.5 rounded-lg border border-stone-200 dark:border-stone-800 disabled:opacity-30"><ChevronsRight className="w-3.5 h-3.5" /></button>
-            </div>
+          <div className="p-3 sm:p-4 bg-stone-50 dark:bg-stone-950/60 border-t border-stone-200 dark:border-stone-800 flex items-center justify-between gap-3 text-xs text-stone-500">
+            <span><strong className="text-stone-700 dark:text-stone-300">{processedIndicators.length}</strong> indicadores exibidos na mesma página</span>
+            <span>Use busca, filtros e ordenação para refinar a matriz.</span>
           </div>
         </div>
       </div>
