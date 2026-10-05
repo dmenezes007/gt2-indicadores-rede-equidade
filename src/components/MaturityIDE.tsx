@@ -4,6 +4,7 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 import { IDE_REQUIREMENTS, IDE_MODEL_STRUCTURE } from '../data/cycleData';
+import { IDE_OFFICIAL_REQUIREMENTS } from '../data/ideRequirements';
 import { INDICATORS } from '../data/indicatorsData';
 import { Indicator } from '../types/indicators';
 
@@ -246,6 +247,51 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                     </button>
                   )}
                 </div>
+              </div>
+            </div>
+
+            {/* Official 38-requirement interactive matrix */}
+            <div className="rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-6 shadow-xs">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 pb-4 border-b border-stone-100 dark:border-stone-800">
+                <div>
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-400">Instrumento oficial</span>
+                  <h4 className="text-lg font-bold text-stone-900 dark:text-white">38 requisitos do Modelo IDE</h4>
+                  <p className="mt-1 text-xs text-stone-500 dark:text-stone-400 max-w-3xl">
+                    Passe o mouse ou toque em um requisito para consultar a pergunta, a dimensão, o tema, as categorias de resposta e o comentário explicativo do Manual.
+                  </p>
+                </div>
+                <div className="flex gap-1.5 text-[10px] font-semibold">
+                  <span className="px-2 py-1 rounded bg-teal-50 text-teal-800 dark:bg-teal-950/50 dark:text-teal-300">D Diversidade</span>
+                  <span className="px-2 py-1 rounded bg-indigo-50 text-indigo-800 dark:bg-indigo-950/50 dark:text-indigo-300">G Gênero</span>
+                  <span className="px-2 py-1 rounded bg-amber-50 text-amber-800 dark:bg-amber-950/50 dark:text-amber-300">R Raça</span>
+                </div>
+              </div>
+              <div className="mt-5 grid grid-cols-5 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-[repeat(19,minmax(0,1fr))] gap-1.5">
+                {IDE_OFFICIAL_REQUIREMENTS.map((req) => (
+                  <div key={req.id} className="group relative">
+                    <button
+                      type="button"
+                      aria-label={`Requisito ${req.id}: ${req.question}`}
+                      className="w-full aspect-square min-h-8 rounded-md border border-stone-200 dark:border-stone-700 bg-stone-50 dark:bg-stone-800 hover:border-teal-500 hover:bg-teal-50 dark:hover:bg-teal-950/40 text-[10px] font-mono font-bold text-stone-700 dark:text-stone-200 transition-colors"
+                    >
+                      {req.id}
+                    </button>
+                    <div className="pointer-events-none absolute z-30 hidden group-hover:block group-focus-within:block bottom-full left-1/2 -translate-x-1/2 mb-2 w-80 max-w-[80vw] rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-950 p-4 shadow-xl text-left">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-mono font-bold text-teal-700 dark:text-teal-400">REQUISITO {req.id}</span>
+                        <div className="flex gap-1">
+                          {req.categories.includes('diversidade') && <span className="px-1.5 py-0.5 rounded bg-teal-50 text-teal-700 dark:bg-teal-950/50 dark:text-teal-300 text-[9px]">D</span>}
+                          {req.categories.includes('genero') && <span className="px-1.5 py-0.5 rounded bg-indigo-50 text-indigo-700 dark:bg-indigo-950/50 dark:text-indigo-300 text-[9px]">G</span>}
+                          {req.categories.includes('raca') && <span className="px-1.5 py-0.5 rounded bg-amber-50 text-amber-700 dark:bg-amber-950/50 dark:text-amber-300 text-[9px]">R</span>}
+                        </div>
+                      </div>
+                      <div className="mt-1 text-[10px] font-semibold text-stone-400">{req.dimension} • {req.theme}</div>
+                      <p className="mt-2 text-xs font-semibold leading-relaxed text-stone-900 dark:text-white">{req.question}</p>
+                      <p className="mt-2 pt-2 border-t border-stone-100 dark:border-stone-800 text-[11px] leading-relaxed text-stone-600 dark:text-stone-400">{req.explanation}</p>
+                      <div className="mt-2 text-[9px] uppercase tracking-wider font-semibold text-stone-400">Resposta: Sim ou Não</div>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
 
