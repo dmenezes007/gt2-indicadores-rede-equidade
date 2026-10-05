@@ -65,7 +65,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
         {/* Previous Cycle Warning / Current Cycle Readiness */}
                   <div className="space-y-6">
             {/* The 3 Core Scales Cards */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Scale 1: Diversidade (7 requisitos) - I05 */}
               <div
                 className={`ide-scale-card cursor-pointer relative overflow-hidden rounded-[1.75rem] border p-6 bg-white dark:bg-stone-900 transition-all border-teal-200 dark:border-teal-900/70 hover:border-teal-500 shadow-sm`}
@@ -221,10 +221,8 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                   )}
                 </div>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-              <div className="ide-scale-card lg:col-start-2 relative overflow-hidden rounded-[1.75rem] border border-sky-200 dark:border-sky-900/70 bg-white dark:bg-stone-900 p-6 shadow-sm hover:border-sky-500 transition-all flex flex-col justify-between">
+              <div className="ide-scale-card relative overflow-hidden rounded-[1.75rem] border border-sky-200 dark:border-sky-900/70 bg-white dark:bg-stone-900 p-6 shadow-sm hover:border-sky-500 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300">I08 • EVOLUÇÃO LONGITUDINAL</span>
