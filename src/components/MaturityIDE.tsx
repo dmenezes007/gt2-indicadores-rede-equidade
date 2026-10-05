@@ -95,14 +95,14 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800">
                   <div className="flex justify-between text-[11px] text-stone-500 mb-2">
                     <span>Escala 0–7</span>
-                    <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
+                    
                   </div>
                   {requirementGrid('diversidade', 'border-teal-200 dark:border-teal-800/60 bg-teal-50/70 dark:bg-teal-950/30 text-teal-800 dark:text-teal-300 hover:border-teal-500', 'border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-950 text-teal-950 dark:text-teal-100')}
                 </div>
 
                 {/* Link to Indicator */}
                 <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex flex-wrap justify-between items-center gap-2 text-xs">
-                  <span className="text-stone-500 text-[11px]">Meta: 1º Ciclo de Base</span>
+                  
                   {i05 && (
                     <button
                       onClick={(e) => {
@@ -147,14 +147,14 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800">
                   <div className="flex justify-between text-[11px] text-stone-500 mb-2">
                     <span>Escala 0–31</span>
-                    <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
+                    
                   </div>
                   {requirementGrid('genero', 'border-indigo-200 dark:border-indigo-800/60 bg-indigo-50/70 dark:bg-indigo-950/30 text-indigo-800 dark:text-indigo-300 hover:border-indigo-500', 'border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950 text-indigo-950 dark:text-indigo-100')}
                 </div>
 
                 {/* Link to Indicator */}
                 <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex flex-wrap justify-between items-center gap-2 text-xs">
-                  <span className="text-stone-500 text-[11px]">Meta: 1º Ciclo de Base</span>
+                  
                   {i06 && (
                     <button
                       onClick={(e) => {
@@ -199,14 +199,14 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800">
                   <div className="flex justify-between text-[11px] text-stone-500 mb-2">
                     <span>Escala 0–31</span>
-                    <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
+                    
                   </div>
                   {requirementGrid('raca', 'border-amber-200 dark:border-amber-800/60 bg-amber-50/70 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 hover:border-amber-500', 'border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950 text-amber-950 dark:text-amber-100')}
                 </div>
 
                 {/* Link to Indicator */}
                 <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex flex-wrap justify-between items-center gap-2 text-xs">
-                  <span className="text-stone-500 text-[11px]">Meta: 1º Ciclo de Base</span>
+                  
                   {i07 && (
                     <button
                       onClick={(e) => {
@@ -223,45 +223,23 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
               </div>
             </div>
 
-            <div className="grid grid-cols-1 gap-5">
-              {/* I08 Longitudinal Evolution Box (4 cols) */}
-              <div className="rounded-xl bg-stone-900 text-white p-6 flex flex-col justify-between shadow-xs">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+              <div className="lg:col-start-2 rounded-xl border border-sky-200 dark:border-sky-900/70 bg-white dark:bg-stone-900 p-6 shadow-sm hover:border-sky-500 transition-all flex flex-col justify-between">
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span className="text-xs font-mono font-semibold text-amber-400">
-                      I08 • EVOLUÇÃO LONGITUDINAL
-                    </span>
-                    <span className="text-[10px] px-2 py-0.5 rounded bg-stone-800 text-stone-300">
-                      Bienal
-                    </span>
+                    <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-sky-50 dark:bg-sky-950/60 text-sky-800 dark:text-sky-300">I08 • EVOLUÇÃO LONGITUDINAL</span>
+                    <span className="text-xs text-stone-400 font-medium">Bienal</span>
                   </div>
-                  <h4 className="mt-3 text-base font-bold text-white">
-                    Taxa de Evolução da Maturidade
-                  </h4>
-                  <p className="mt-2 text-xs text-stone-300 leading-relaxed">
-                    Mede o percentual de partícipes que melhoram seu escore em ao menos uma categoria (Diversidade, Gênero ou Raça) em relação ao ciclo anterior.
-                  </p>
+                  <div className="mt-4">
+                    <h3 className="text-xl font-bold text-stone-900 dark:text-white">Taxa de Evolução da Maturidade</h3>
+                    <p className="text-xs text-stone-500 dark:text-stone-400 mt-1 leading-relaxed">Mede o percentual de partícipes que melhoram seu escore em ao menos uma categoria — Diversidade, Gênero ou Raça — em relação ao ciclo anterior.</p>
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800 space-y-2 text-xs">
+                    <div className="flex flex-wrap justify-between gap-2"><span className="text-stone-500">Meta proposta</span><span className="font-mono font-bold text-sky-700 dark:text-sky-300">≥ 70% dos partícipes</span></div>
+                    <div className="flex flex-wrap justify-between gap-2"><span className="text-stone-500">Unidade de análise</span><span className="text-stone-700 dark:text-stone-300">Instituições comparáveis</span></div>
+                  </div>
                 </div>
-
-                <div className="mt-6 pt-4 border-t border-stone-800 space-y-3">
-                  <div className="flex justify-between items-baseline text-xs">
-                    <span className="text-stone-400">Meta pactuada:</span>
-                    <span className="font-mono font-bold text-emerald-400">≥ 70% dos partícipes</span>
-                  </div>
-                  <div className="flex justify-between items-baseline text-xs">
-                    <span className="text-stone-400">Unidade de análise:</span>
-                    <span className="text-stone-200">Instituições comparáveis</span>
-                  </div>
-                  {i08 && (
-                    <button
-                      onClick={() => onOpenIndicator(i08)}
-                      className="w-full mt-2 py-2 px-3 rounded-lg bg-stone-800 hover:bg-stone-700 text-xs font-semibold text-stone-100 flex items-center justify-center gap-1 transition-colors"
-                    >
-                      <span>Ver ficha I08</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </button>
-                  )}
-                </div>
+                {i08 && <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex justify-end text-xs"><button onClick={() => onOpenIndicator(i08)} className="text-sky-700 dark:text-sky-400 font-medium hover:underline flex items-center gap-1"><span>Ver ficha I08</span><ArrowUpRight className="w-3 h-3" /></button></div>}
               </div>
             </div>
           </div>
