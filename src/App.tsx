@@ -390,6 +390,19 @@ export default function App() {
         {/* PERSPECTIVA: REDE (Consolidated) */}
         {perspective === 'network' && (
           <>
+            {/* Matriz de Indicadores — primeira seção analítica */}
+            {/* Analytical Matrix */}
+            <AnalyticsMatrix
+              indicators={filteredIndicators}
+              onOpenIndicator={(ind) => setActiveIndicator(ind)}
+              selectedIndicators={selectedIndicators}
+              onToggleSelect={handleToggleSelect}
+              onSelectAll={handleSelectAll}
+              onClearSelection={handleClearSelection}
+              onOpenComparison={() => setComparisonOpen(true)}
+              onOpenReportWithSelected={() => setReportOpen(true)}
+            />
+
             {/* Network Panorama (Layer 03 derived) */}
             {networkData && (
               <NetworkOverview
@@ -430,18 +443,6 @@ export default function App() {
               selectedIndicators={selectedIndicators}
               onToggleSelect={handleToggleSelect}
               onOpenComparison={() => setComparisonOpen(true)}
-            />
-
-            {/* Analytical Matrix */}
-            <AnalyticsMatrix
-              indicators={filteredIndicators}
-              onOpenIndicator={(ind) => setActiveIndicator(ind)}
-              selectedIndicators={selectedIndicators}
-              onToggleSelect={handleToggleSelect}
-              onSelectAll={handleSelectAll}
-              onClearSelection={handleClearSelection}
-              onOpenComparison={() => setComparisonOpen(true)}
-              onOpenReportWithSelected={() => setReportOpen(true)}
             />
 
             {/* Implementation Guidelines */}
