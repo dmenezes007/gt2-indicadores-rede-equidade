@@ -29,7 +29,6 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
 }) => {
   const [localSearch, setLocalSearch] = useState('');
   const [dimensionFilter, setDimensionFilter] = useState('todas');
-  const [priorityFilter, setPriorityFilter] = useState('todas');
   const [periodicityFilter, setPeriodicityFilter] = useState('todas');
   const [sortField, setSortField] = useState<SortField>('id');
   const [sortDirection, setSortDirection] = useState<SortDirection>('asc');
@@ -37,7 +36,6 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
   const [expandedRows, setExpandedRows] = useState<string[]>([]);
 
   const dimensions = useMemo(() => Array.from(new Set(indicators.map(i => i.dimensao))).sort(), [indicators]);
-  const priorities = useMemo(() => Array.from(new Set(indicators.map(i => i.prioridade))), [indicators]);
   const periodicities = useMemo(() => Array.from(new Set(indicators.map(i => i.periodicidade))), [indicators]);
 
   const processedIndicators = useMemo(() => {
@@ -46,12 +44,11 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
 
     if (q) {
       result = result.filter(i => [
-        i.id, i.indicador, i.dimensao, i.responsavel, i.tipo, i.categoriaTipo,
+        i.id, i.indicador, i.dimensao, i.tipo, i.categoriaTipo,
         i.fonte, i.definicao, i.formula, i.meta, i.rastreabilidade, i.observacao,
       ].some(value => String(value || '').toLocaleLowerCase('pt-BR').includes(q)));
     }
     if (dimensionFilter !== 'todas') result = result.filter(i => i.dimensao === dimensionFilter);
-    if (priorityFilter !== 'todas') result = result.filter(i => i.prioridade === priorityFilter);
     if (periodicityFilter !== 'todas') result = result.filter(i => i.periodicidade === periodicityFilter);
 
     result.sort((a, b) => {
@@ -63,10 +60,10 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
       return sortDirection === 'asc' ? comparison : -comparison;
     });
     return result;
-  }, [indicators, localSearch, dimensionFilter, priorityFilter, periodicityFilter, sortField, sortDirection]);
+  }, [indicators, localSearch, dimensionFilter, periodicityFilter, sortField, sortDirection]);
 
   const allFilteredSelected = processedIndicators.length > 0 && processedIndicators.every(i => selectedIndicators.includes(i.id));
-  const hasLocalFilters = !!localSearch || dimensionFilter !== 'todas' || priorityFilter !== 'todas' || periodicityFilter !== 'todas';
+  const hasLocalFilters = !!localSearch || dimensionFilter !== 'todas' || periodicityFilter !== 'todas';
 
   const handleSort = (field: SortField) => {
     if (sortField === field) setSortDirection(d => d === 'asc' ? 'desc' : 'asc');
@@ -83,7 +80,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
   );
 
   const clearLocalFilters = () => {
-    setLocalSearch(''); setDimensionFilter('todas'); setPriorityFilter('todas'); setPeriodicityFilter('todas');
+    setLocalSearch(''); setDimensionFilter('todas'); setPeriodicityFilter('todas');
   };
 
   const handleExportSelectedOrAll = () => {
