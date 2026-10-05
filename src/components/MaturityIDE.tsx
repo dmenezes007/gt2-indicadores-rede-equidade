@@ -239,7 +239,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                     <div className="flex flex-wrap justify-between gap-2"><span className="text-stone-500">Unidade de análise</span><span className="text-stone-700 dark:text-stone-300">Instituições comparáveis</span></div>
                   </div>
                 </div>
-                {i08 && <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex justify-end text-xs"><button onClick={() => onOpenIndicator(i08)} className="text-sky-700 dark:text-sky-400 font-medium hover:underline flex items-center gap-1"><span>Ver ficha I08</span><ArrowUpRight className="w-3 h-3" /></button></div>}
+                {i08 && <div className="mt-4 pt-3 border-t border-stone-100 dark:border-stone-800 flex justify-start text-xs"><button onClick={() => onOpenIndicator(i08)} className="text-sky-700 dark:text-sky-400 font-medium hover:underline flex items-center gap-1"><span>Ver ficha I08</span><ArrowUpRight className="w-3 h-3" /></button></div>}
               </div>
             </div>
           </div>
