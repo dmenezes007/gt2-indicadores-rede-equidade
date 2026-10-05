@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Calendar,
 } from 'lucide-react';
-import { Indicator, Priority } from '../types/indicators';
+import { Indicator } from '../types/indicators';
 import { DIMENSIONS } from '../data/dimensionsData';
 import { exportIndicatorsToCSV, exportIndicatorsToJSON } from '../utils/helpers';
 
