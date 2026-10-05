@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Header } from './components/Header';
 import { CommandBar } from './components/CommandBar';
-import { InstitutionProfile } from './components/InstitutionProfile';
-import { IndicatorAnalyticsView } from './components/IndicatorAnalyticsView';
 import { EvidenceExplorer } from './components/EvidenceExplorer';
 import { PendingTasksPanel } from './components/PendingTasksPanel';
 import { CommandPalette } from './components/CommandPalette';
@@ -24,7 +22,6 @@ import {
   evidenceRepository,
   localDataStore,
 } from './repositories/localRepository';
-import { analyticsService, NetworkOverviewData, InstitutionProfileData } from './services/analyticsService';
 import {
   IndicatorDefinition,
   Institution,
@@ -87,13 +84,8 @@ export default function App() {
   const [institutions, setInstitutions] = useState<Institution[]>([]);
   const [indicatorDefinitions, setIndicatorDefinitions] = useState<IndicatorDefinition[]>([]);
   const [selectedInstitutionId, setSelectedInstitutionId] = useState<string>('inst-a');
-  const [selectedIndicatorId, setSelectedIndicatorId] = useState<string>(
-    () => getInitialUrlParam('indicator', 'I01')
-  );
 
   // Analytics calculated data
-  const [networkData, setNetworkData] = useState<NetworkOverviewData | null>(null);
-  const [institutionProfile, setInstitutionProfile] = useState<InstitutionProfileData | null>(null);
   const [allEvidences, setAllEvidences] = useState<Evidence[]>([]);
   const [allMeasurements, setAllMeasurements] = useState<Measurement[]>([]);
 
@@ -139,30 +131,17 @@ export default function App() {
       setSelectedInstitutionId(insts[0].id);
     }
 
-    const nData = await analyticsService.getNetworkOverview(selectedCycleId);
-    setNetworkData(nData);
-
     const meas = await measurementRepository.getAll(selectedCycleId);
     setAllMeasurements(meas);
 
     const evs = await evidenceRepository.getAll(selectedCycleId);
     setAllEvidences(evs);
 
-    if (selectedInstitutionId) {
-      const instData = await analyticsService.getInstitutionProfile(selectedInstitutionId, selectedCycleId);
-      setInstitutionProfile(instData);
-    }
   };
 
   useEffect(() => {
     reloadDataLayer();
   }, [selectedCycleId, demoMode]);
-
-  useEffect(() => {
-    if (selectedInstitutionId) {
-      analyticsService.getInstitutionProfile(selectedInstitutionId, selectedCycleId).then(setInstitutionProfile);
-    }
-  }, [selectedInstitutionId, selectedCycleId]);
 
   // Distinct types and responsibles for dynamic filtering
   const availableTypes = useMemo(() => {
@@ -257,13 +236,7 @@ export default function App() {
     return INDICATORS.filter((i) => selectedIndicators.includes(i.id));
   }, [selectedIndicators]);
 
-  // Selected indicator definition for Indicator perspective
-  const currentIndicatorDef = useMemo(() => {
-    return (
-      indicatorDefinitions.find((i) => i.id === selectedIndicatorId) ||
-      indicatorDefinitions[0]
-    );
-  }, [indicatorDefinitions, selectedIndicatorId]);
+
 
   return (
     <div className="min-h-screen flex flex-col bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors">
@@ -292,12 +265,10 @@ export default function App() {
         searchRef={searchInputRef}
       />
 
-      {/* Main Content Areas based on Perspective */}
+      {/* Main Content */}
       <main className="flex-1 space-y-2">
-        {/* PERSPECTIVA: REDE (Consolidated) */}
         <>
-            {/* Matriz de Indicadores — primeira seção analítica */}
-            {/* Analytical Matrix */}
+            {/* Matriz de Indicadores */}
             <AnalyticsMatrix
               indicators={filteredIndicators}
               onOpenIndicator={(ind) => setActiveIndicator(ind)}
