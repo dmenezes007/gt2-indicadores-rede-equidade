@@ -1,0 +1,6 @@
+{
+  "name": "Rede Equidade — Painel de Indicadores GT2",
+  "description": "Painel executivo, analítico e de inteligência de dados dos indicadores de Diversidade, Equidade e Inclusão do GT2 da Rede Equidade.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

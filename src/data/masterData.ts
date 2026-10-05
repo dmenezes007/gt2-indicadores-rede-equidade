@@ -1,0 +1,210 @@
+import {
+  IndicatorDefinition,
+  Dimension,
+  MonitoringCycle,
+  IndicatorTarget,
+  Institution,
+} from '../types/dataModels';
+import { INDICATORS } from './indicatorsData';
+import { DIMENSIONS } from './dimensionsData';
+
+export const OFFICIAL_DIMENSIONS: Dimension[] = DIMENSIONS.map((d, index) => ({
+  id: d.id,
+  code: d.numero,
+  name: d.nome,
+  executiveName: d.nomeCurto,
+  description: d.finalidade,
+  managerialReading: d.leituraGerencial,
+  order: index + 1,
+  active: true,
+}));
+
+export const OFFICIAL_INDICATORS: IndicatorDefinition[] = INDICATORS.map((ind) => ({
+  id: ind.id,
+  code: ind.id,
+  name: ind.indicador,
+  dimensionId: ind.dimensaoId,
+  description: ind.definicao,
+  operationalDefinition: ind.definicao,
+  indicatorType: ind.tipo,
+  categoriaTipo: ind.categoriaTipo,
+  formula: ind.formula,
+  unit: ind.unidade,
+  frequency: ind.periodicidade,
+  analysisUnit: ind.unidadeAnalise,
+  targetDefinition: ind.meta,
+  priority: ind.prioridade,
+  normativeTraceability: [
+    {
+      source: 'Modelo IDE / ACT Rede Equidade',
+      description: ind.rastreabilidade,
+    },
+  ],
+  suggestedResponsible: [
+    {
+      role: ind.responsavel,
+      instance: ind.responsavel.includes('Comitê')
+        ? 'ComiteCoordenador'
+        : ind.responsavel.includes('repositório')
+        ? 'GestaoRepositorio'
+        : ind.responsavel.includes('pontos focais')
+        ? 'PontosFocais'
+        : 'GT2',
+    },
+  ],
+  coreRecommended: ind.nucleoRecomendado,
+  observation: ind.observacao,
+  interpretacao: ind.interpretacao,
+  active: true,
+  version: 1,
+  validFrom: '2025-01-01',
+}));
+
+export const OFFICIAL_CYCLES: MonitoringCycle[] = [
+  {
+    id: 'cycle-2025',
+    name: 'Ciclo 2025 — Linha de Base',
+    referenceYear: 2025,
+    semester: 2,
+    startDate: '2025-01-01',
+    endDate: '2025-12-31',
+    collectionStart: '2025-07-01',
+    collectionEnd: '2025-12-15',
+    status: 'closed',
+    isBaseline: true,
+  },
+  {
+    id: 'cycle-2026',
+    name: 'Ciclo 2026 — Em Coleta e Monitoramento',
+    referenceYear: 2026,
+    startDate: '2026-01-01',
+    endDate: '2026-12-31',
+    collectionStart: '2026-02-01',
+    collectionEnd: '2026-11-30',
+    status: 'collection_open',
+    isBaseline: false,
+  },
+  {
+    id: 'cycle-2027',
+    name: 'Ciclo 2027 — Planejado',
+    referenceYear: 2027,
+    startDate: '2027-01-01',
+    endDate: '2027-12-31',
+    status: 'planned',
+    isBaseline: false,
+  },
+];
+
+export const OFFICIAL_TARGETS: IndicatorTarget[] = [
+  {
+    id: 'target-i01',
+    indicatorId: 'I01',
+    targetType: 'minimum',
+    targetValue: 80,
+    targetText: '≥ 80% ao fim do biênio',
+    unit: '%',
+  },
+  {
+    id: 'target-i02',
+    indicatorId: 'I02',
+    targetType: 'minimum',
+    targetValue: 80,
+    targetText: '≥ 80% ao fim do biênio',
+    unit: '%',
+  },
+  {
+    id: 'target-i03',
+    indicatorId: 'I03',
+    targetType: 'increase',
+    targetText: 'Linha de base no 1º ciclo; evolução positiva no biênio',
+  },
+  {
+    id: 'target-i04',
+    indicatorId: 'I04',
+    targetType: 'minimum',
+    targetValue: 90,
+    targetText: '≥ 90% dos partícipes no ciclo',
+    unit: '%',
+  },
+  {
+    id: 'target-i05',
+    indicatorId: 'I05',
+    targetType: 'baseline',
+    targetText: 'Linha de base no 1º ciclo; incremento no ciclo subsequente',
+    unit: '%',
+  },
+  {
+    id: 'target-i06',
+    indicatorId: 'I06',
+    targetType: 'baseline',
+    targetText: 'Linha de base no 1º ciclo; incremento no ciclo subsequente',
+    unit: '%',
+  },
+  {
+    id: 'target-i07',
+    indicatorId: 'I07',
+    targetType: 'baseline',
+    targetText: 'Linha de base no 1º ciclo; incremento no ciclo subsequente',
+    unit: '%',
+  },
+  {
+    id: 'target-i08',
+    indicatorId: 'I08',
+    targetType: 'minimum',
+    targetValue: 70,
+    targetText: '≥ 70% dos partícipes comparáveis',
+    unit: '%',
+  },
+  {
+    id: 'target-i09',
+    indicatorId: 'I09',
+    targetType: 'exact',
+    targetValue: 2,
+    targetText: '100% — 2 oficinas',
+    unit: 'oficinas',
+  },
+  {
+    id: 'target-i10',
+    indicatorId: 'I10',
+    targetType: 'exact',
+    targetValue: 4,
+    targetText: '100% — 4 ações',
+    unit: 'ações',
+  },
+  {
+    id: 'target-i11',
+    indicatorId: 'I11',
+    targetType: 'increase',
+    targetText: 'Linha de base no 1º ano; ampliar alcance no ano seguinte',
+  },
+  {
+    id: 'target-i12',
+    indicatorId: 'I12',
+    targetType: 'minimum',
+    targetValue: 85,
+    targetText: '≥ 85% de avaliação positiva',
+    unit: '%',
+  },
+  {
+    id: 'target-i13',
+    indicatorId: 'I13',
+    targetType: 'increase',
+    targetText: 'Linha de base no 1º ano; evolução positiva',
+  },
+  {
+    id: 'target-i14',
+    indicatorId: 'I14',
+    targetType: 'minimum',
+    targetValue: 80,
+    targetText: '≥ 80% ao fim do biênio',
+    unit: '%',
+  },
+  {
+    id: 'target-i15',
+    indicatorId: 'I15',
+    targetType: 'minimum',
+    targetValue: 80,
+    targetText: '≥ 80% dos partícipes por ano',
+    unit: '%',
+  },
+];
