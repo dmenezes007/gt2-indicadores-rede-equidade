@@ -44,11 +44,8 @@ export default function App() {
   // Theme state
   const [darkMode, setDarkMode] = useState<boolean>(() => {
     if (typeof window !== 'undefined') {
-      return (
-        localStorage.getItem('rede-equidade-theme') === 'dark' ||
-        (!('rede-equidade-theme' in localStorage) &&
-          window.matchMedia('(prefers-color-scheme: dark)').matches)
-      );
+      // Light is the application default; an explicit saved dark preference is respected.
+      return localStorage.getItem('rede-equidade-theme') === 'dark';
     }
     return false;
   });
