@@ -128,9 +128,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
             <select value={dimensionFilter} onChange={e => setDimensionFilter(e.target.value)} className="px-3 py-2.5 text-xs rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800">
               <option value="todas">Todas as dimensões</option>{dimensions.map(v => <option key={v}>{v}</option>)}
             </select>
-            <select value={priorityFilter} onChange={e => setPriorityFilter(e.target.value)} className="px-3 py-2.5 text-xs rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800">
-              <option value="todas">Todas as prioridades</option>{priorities.map(v => <option key={v}>{v}</option>)}
-            </select>
+
             <select value={periodicityFilter} onChange={e => setPeriodicityFilter(e.target.value)} className="px-3 py-2.5 text-xs rounded-xl bg-stone-50 dark:bg-stone-950 border border-stone-200 dark:border-stone-800">
               <option value="todas">Todas as periodicidades</option>{periodicities.map(v => <option key={v}>{v}</option>)}
             </select>
