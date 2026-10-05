@@ -63,12 +63,7 @@ export const IndicatorAnalyticsView: React.FC<IndicatorAnalyticsViewProps> = ({
               <span className="text-xs font-semibold px-2 py-0.5 rounded bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
                 {indicator.dimensionId}
               </span>
-              {indicator.coreRecommended && (
-                <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300">
-                  Núcleo Recomendado
-                </span>
-              )}
-            </div>
+          </div>
             <h2 className="text-xl sm:text-2xl font-extrabold text-stone-950 dark:text-white leading-tight">
               {indicator.name}
             </h2>
