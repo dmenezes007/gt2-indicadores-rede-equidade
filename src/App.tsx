@@ -9,14 +9,11 @@ import { PendingTasksPanel } from './components/PendingTasksPanel';
 import { CommandPalette } from './components/CommandPalette';
 import { DimensionMap } from './components/DimensionMap';
 import { MaturityIDE } from './components/MaturityIDE';
-import { ExecutionTracker } from './components/ExecutionTracker';
 import { DataVisualization } from './components/DataVisualization';
-import { IndicatorExplorer } from './components/IndicatorExplorer';
 import { AnalyticsMatrix } from './components/AnalyticsMatrix';
 import { IndicatorDrawer } from './components/IndicatorDrawer';
 import { ComparisonModal } from './components/ComparisonModal';
 import { ReportModal } from './components/ReportModal';
-import { ImplementationGuidelines } from './components/ImplementationGuidelines';
 import { TechnicalFooter } from './components/TechnicalFooter';
 
 // Repositories & Services
@@ -399,26 +396,12 @@ export default function App() {
             {/* IDE Maturity Special Section */}
             <MaturityIDE onOpenIndicator={(ind) => setActiveIndicator(ind)} />
 
-            {/* Execution Tracker (I09 & I10) */}
-            <ExecutionTracker onOpenIndicator={handleOpenIndicatorById} />
-
             {/* Analytics & Visualizations */}
             <DataVisualization
               onOpenIndicator={(ind) => setActiveIndicator(ind)}
               onFilterDimension={handleSelectDimension}
             />
 
-            {/* Indicator Explorer */}
-            <IndicatorExplorer
-              indicators={filteredIndicators}
-              onOpenIndicator={(ind) => setActiveIndicator(ind)}
-              selectedIndicators={selectedIndicators}
-              onToggleSelect={handleToggleSelect}
-              onOpenComparison={() => setComparisonOpen(true)}
-            />
-
-            {/* Implementation Guidelines */}
-            <ImplementationGuidelines />
           </>
         )}
 
