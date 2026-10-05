@@ -3,7 +3,6 @@ import {
   X,
   Copy,
   Check,
-  FilePlus,
   Share2,
   ExternalLink,
   ShieldCheck,
@@ -14,26 +13,20 @@ import {
   FileText,
 } from 'lucide-react';
 import { Indicator } from '../types/indicators';
-import { getPriorityBadgeClass, GLOSSARY } from '../utils/helpers';
+
 
 interface IndicatorDrawerProps {
   indicator: Indicator | null;
   onClose: () => void;
-  onAddToReport: (indicator: Indicator) => void;
-  isInReport?: boolean;
 }
 
 export const IndicatorDrawer: React.FC<IndicatorDrawerProps> = ({
   indicator,
   onClose,
-  onAddToReport,
-  isInReport,
 }) => {
   const [copied, setCopied] = useState(false);
 
   if (!indicator) return null;
-
-  const priorityStyle = getPriorityBadgeClass(indicator.prioridade);
 
   const handleCopyFicha = () => {
     const text = `
@@ -50,10 +43,7 @@ Periodicidade: ${indicator.periodicidade}
 Unidade de Análise: ${indicator.unidadeAnalise}
 Fonte de Evidência: ${indicator.fonte}
 Meta Proposta: ${indicator.meta}
-Prioridade: ${indicator.prioridade}
 Rastreabilidade: ${indicator.rastreabilidade}
-Responsável: ${indicator.responsavel}
-Núcleo Recomendado: ${indicator.nucleoRecomendado ? 'Sim' : 'Não'}
 Observação: ${indicator.observacao}
 Como Interpretar: ${indicator.interpretacao || 'N/A'}
 --------------------------------------------------
@@ -86,11 +76,6 @@ Painel de Indicadores GT2 • Rede Equidade (2026)
                 <span className="text-xs font-semibold px-2 py-0.5 rounded bg-stone-200 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
                   {indicator.dimensao}
                 </span>
-                {indicator.nucleoRecomendado && (
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300">
-                    Núcleo Recomendado
-                  </span>
-                )}
               </div>
 
               <button
@@ -113,31 +98,9 @@ Painel de Indicadores GT2 • Rede Equidade (2026)
           {/* Body Content - Scrollable */}
           <div className="p-6 space-y-6 overflow-y-auto flex-1 text-xs text-stone-700 dark:text-stone-300">
             {/* Quick KPI Strip */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-3.5 rounded-xl bg-stone-100/70 dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800">
-              <div>
-                <span className="text-[10px] uppercase font-bold text-stone-400 block">Prioridade</span>
-                <span className="font-semibold text-stone-900 dark:text-white mt-0.5 block">
-                  {indicator.prioridade}
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-bold text-stone-400 block">Unidade</span>
-                <span className="font-mono font-semibold text-stone-900 dark:text-white mt-0.5 block">
-                  {indicator.unidade}
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-bold text-stone-400 block">Periodicidade</span>
-                <span className="font-semibold text-stone-900 dark:text-white mt-0.5 block">
-                  {indicator.periodicidade}
-                </span>
-              </div>
-              <div>
-                <span className="text-[10px] uppercase font-bold text-stone-400 block">Núcleo</span>
-                <span className="font-semibold text-stone-900 dark:text-white mt-0.5 block">
-                  {indicator.nucleoRecomendado ? 'Recomendado' : 'Complementar'}
-                </span>
-              </div>
+            <div className="grid grid-cols-2 gap-3 p-3.5 rounded-xl bg-stone-100/70 dark:bg-stone-900 border border-stone-200/80 dark:border-stone-800">
+              <div><span className="text-[10px] uppercase font-bold text-stone-400 block">Unidade</span><span className="font-mono font-semibold text-stone-900 dark:text-white mt-0.5 block">{indicator.unidade}</span></div>
+              <div><span className="text-[10px] uppercase font-bold text-stone-400 block">Periodicidade</span><span className="font-semibold text-stone-900 dark:text-white mt-0.5 block">{indicator.periodicidade}</span></div>
             </div>
 
             {/* Definição Operacional */}
@@ -210,25 +173,10 @@ Painel de Indicadores GT2 • Rede Equidade (2026)
               </p>
             </div>
 
-            {/* Responsabilidade & Rastreabilidade */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                  Responsabilidade
-                </span>
-                <div className="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800 font-medium text-stone-900 dark:text-white text-xs">
-                  {indicator.responsavel}
-                </div>
-              </div>
-
-              <div className="space-y-1">
-                <span className="text-[10px] uppercase font-bold text-stone-400 block">
-                  Rastreabilidade Normativa
-                </span>
-                <div className="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-xs leading-relaxed">
-                  {indicator.rastreabilidade}
-                </div>
-              </div>
+            {/* Rastreabilidade Normativa */}
+            <div className="space-y-1">
+              <span className="text-[10px] uppercase font-bold text-stone-400 block">Rastreabilidade Normativa</span>
+              <div className="p-2.5 rounded-lg bg-stone-50 dark:bg-stone-900/60 border border-stone-200/60 dark:border-stone-800 text-stone-600 dark:text-stone-400 text-xs leading-relaxed">{indicator.rastreabilidade}</div>
             </div>
           </div>
 
@@ -252,18 +200,7 @@ Painel de Indicadores GT2 • Rede Equidade (2026)
                 )}
               </button>
 
-              <button
-                onClick={() => onAddToReport(indicator)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-lg text-xs font-semibold transition-colors ${
-                  isInReport
-                    ? 'bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300 border border-teal-200 dark:border-teal-800'
-                    : 'bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-stone-800 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-700'
-                }`}
-              >
-                <FilePlus className="w-3.5 h-3.5 text-stone-500" />
-                <span>{isInReport ? 'No relatório ✓' : 'Adicionar ao Relatório'}</span>
-              </button>
-            </div>
+           </div>
 
             <button
               onClick={onClose}
