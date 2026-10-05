@@ -7,6 +7,7 @@ import {
 } from 'lucide-react';
 import { Indicator } from '../types/indicators';
 import { exportIndicatorsToCSV } from '../utils/helpers';
+import { DIMENSIONS } from '../data/dimensionsData';
 
 interface AnalyticsMatrixProps {
   indicators: Indicator[];
@@ -178,25 +179,26 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
                   const isSelected = selectedIndicators.includes(ind.id);
                   const isExpanded = expandedRows.includes(ind.id);
                   const columnCount = showExtraColumns ? 10 : 8;
+                  const dimension = DIMENSIONS.find(d => d.id === ind.dimensaoId);
+                  const dimensionRowClass = dimension ? `${dimension.cor.bgLight} ${dimension.cor.borderLight}` : 'border-stone-100 dark:border-stone-800';
                   return <React.Fragment key={ind.id}>
-                    <tr className={`border-b border-stone-100 dark:border-stone-800 transition-colors ${isSelected ? 'bg-amber-50/70 dark:bg-amber-950/20' : 'hover:bg-stone-50 dark:hover:bg-stone-800/40'}`}>
-                      <td onClick={() => onToggleSelect(ind.id)} className="py-3 px-2 text-center cursor-pointer">{isSelected ? <CheckSquare className="w-4 h-4 mx-auto" /> : <Square className="w-4 h-4 mx-auto text-stone-400" />}</td>
-                      <td className="py-3 px-1"><button onClick={() => toggleExpanded(ind.id)} className="w-6 h-6 rounded-md grid place-items-center border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800" aria-label={isExpanded ? 'Recolher detalhes' : 'Expandir detalhes'}>{isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}</button></td>
+                    <tr onClick={() => toggleExpanded(ind.id)} className={`border-b transition-colors cursor-pointer ${dimensionRowClass} ${isSelected ? 'ring-1 ring-inset ring-stone-400/40' : 'hover:brightness-[0.98] dark:hover:brightness-110'}`}>
+                      <td onClick={(e) => { e.stopPropagation(); onToggleSelect(ind.id); }} className="py-3 px-2 text-center cursor-pointer">{isSelected ? <CheckSquare className="w-4 h-4 mx-auto" /> : <Square className="w-4 h-4 mx-auto text-stone-400" />}</td>
+                      <td className="py-3 px-1"><button onClick={(e) => { e.stopPropagation(); toggleExpanded(ind.id); }} className="w-6 h-6 rounded-md grid place-items-center border border-stone-200 dark:border-stone-700 hover:bg-stone-100 dark:hover:bg-stone-800" aria-label={isExpanded ? 'Recolher detalhes' : 'Expandir detalhes'}>{isExpanded ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}</button></td>
                       <td className="py-3 px-3 font-mono font-bold text-stone-950 dark:text-white">{ind.id}</td>
-                      <td onClick={() => onOpenIndicator(ind)} className="py-3 px-3 font-semibold text-stone-950 dark:text-white cursor-pointer hover:underline">{ind.indicador}</td>
-                      <td className="py-3 px-3 text-stone-600 dark:text-stone-400">{ind.dimensao}</td>
+                      <td className="py-3 px-3 font-semibold text-stone-950 dark:text-white">{ind.indicador}</td>
+                      <td className="py-3 px-3"><span className={`inline-flex px-2 py-1 rounded-md font-semibold ${dimension?.cor.badgeBg || 'bg-stone-100 dark:bg-stone-800'} ${dimension?.cor.badgeText || 'text-stone-600 dark:text-stone-300'}`}>{ind.dimensao}</span></td>
                       <td className="py-3 px-3 font-mono text-[10px]">{ind.tipo}</td>
                       <td className="py-3 px-3">{ind.periodicidade}</td>
                       <td className="py-3 px-3 font-medium">{ind.meta}</td>
                       {showExtraColumns && <><td className="py-3 px-3 text-[11px]">{ind.fonte}</td><td className="py-3 px-3 text-[11px]">{ind.rastreabilidade}</td></>}
                     </tr>
-                    {isExpanded && <tr className="bg-stone-50/80 dark:bg-stone-950/55">
+                    {isExpanded && <tr className={dimension ? `${dimension.cor.bgLight} ${dimension.cor.borderLight}` : "bg-stone-50/80 dark:bg-stone-950/55"}>
                       <td colSpan={columnCount} className="p-0">
-                        <div className="px-5 sm:px-12 py-5 grid md:grid-cols-2 xl:grid-cols-4 gap-4 border-y border-stone-200 dark:border-stone-800">
+                        <div className="px-5 sm:px-12 py-5 grid md:grid-cols-3 gap-5 border-y border-stone-200 dark:border-stone-800">
                           <div><p className="text-[10px] uppercase tracking-wider font-bold text-stone-400 mb-1">Definição</p><p className="text-xs leading-relaxed">{ind.definicao}</p></div>
                           <div><p className="text-[10px] uppercase tracking-wider font-bold text-stone-400 mb-1">Fórmula e unidade</p><p className="text-xs font-mono leading-relaxed">{ind.formula}</p><p className="mt-1 text-[11px] text-stone-500">{ind.unidade} · {ind.unidadeAnalise}</p></div>
-                          <div><p className="text-[10px] uppercase tracking-wider font-bold text-stone-400 mb-1">Fonte e rastreabilidade</p><p className="text-xs leading-relaxed">{ind.fonte}</p><p className="mt-1 text-[11px] text-stone-500">{ind.rastreabilidade}</p></div>
-                          <div><p className="text-[10px] uppercase tracking-wider font-bold text-stone-400 mb-1">Observação / interpretação</p><p className="text-xs leading-relaxed">{ind.observacao || ind.interpretacao || 'Sem observação adicional.'}</p><button onClick={() => onOpenIndicator(ind)} className="mt-3 text-[11px] font-bold underline underline-offset-4">Abrir ficha completa →</button></div>
+                          <div><p className="text-[10px] uppercase tracking-wider font-bold text-stone-400 mb-1">Observação / interpretação</p><p className="text-xs leading-relaxed">{ind.observacao || ind.interpretacao || 'Sem observação adicional.'}</p><button onClick={(e) => { e.stopPropagation(); onOpenIndicator(ind); }} className="mt-3 text-[11px] font-bold underline underline-offset-4">Abrir ficha completa →</button></div>
                         </div>
                       </td>
                     </tr>}
