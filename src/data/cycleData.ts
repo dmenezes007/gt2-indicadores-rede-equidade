@@ -1,59 +1,38 @@
 export interface IdeCategoryRequirements {
   nome: string;
   indicadorId: string;
-  totalRequisitos: number;
+  totalItens: number;
   descricao: string;
-  eixos: string[];
 }
 
 export const IDE_REQUIREMENTS: Record<'diversidade' | 'genero' | 'raca', IdeCategoryRequirements> = {
   diversidade: {
     nome: 'Diversidade',
     indicadorId: 'I05',
-    totalRequisitos: 7,
-    descricao: 'Requisitos transversais de política institucional, liderança, compromisso formal e sensibilização.',
-    eixos: [
-      'Compromisso institucional formal',
-      'Instância de governança designada',
-      'Inclusão no plano estratégico',
-      'Canais de acolhimento e escuta',
-      'Comunicação inclusiva e acessível',
-      'Sensibilização de lideranças',
-      'Mecanismos de monitoramento',
-    ],
+    totalItens: 7,
+    descricao: 'Escala de resultado formada pelos 7 requisitos do Modelo IDE cuja resposta se aplica à categoria Diversidade.',
   },
   genero: {
     nome: 'Gênero',
     indicadorId: 'I06',
-    totalRequisitos: 31,
-    descricao: 'Requisitos específicos para promoção da equidade de gênero, liderança feminina, conciliação e proteção.',
-    eixos: [
-      'Equidade em cargos de liderança (DAS/funções comissionadas)',
-      'Políticas de parentalidade e apoio à amamentação',
-      'Prevenção e combate ao assédio sexual e moral',
-      'Linguagem e comunicação não sexista',
-      'Capacitação em perspectiva de gênero',
-      'Apoio a mulheres em situação de violência',
-      'Igualdade de oportunidades no desenvolvimento funcional',
-      'Dados desagregados por sexo e identidade de gênero',
-    ],
+    totalItens: 31,
+    descricao: 'Escala de resultado formada pelos 31 requisitos do Modelo IDE cuja resposta se aplica ao marcador Gênero.',
   },
   raca: {
     nome: 'Raça',
     indicadorId: 'I07',
-    totalRequisitos: 31,
-    descricao: 'Requisitos de enfrentamento ao racismo institucional, representatividade negra e indígena e ações afirmativas.',
-    eixos: [
-      'Ações afirmativas em processos seletivos internos',
-      'Presença de pessoas negras em posições de decisão',
-      'Comissões de heteroidentificação estruturadas',
-      'Protocolo formal de combate ao racismo institucional',
-      'Formação continuada em relações étnico-raciais',
-      'Autodeclaração étnico-racial segura e qualificada',
-      'Clima organizacional e barreiras de ascensão mapeadas',
-      'Estudos de equidade remuneratória e funcional por raça',
-    ],
+    totalItens: 31,
+    descricao: 'Escala de resultado formada pelos 31 requisitos do Modelo IDE cuja resposta se aplica ao marcador Raça.',
   },
+};
+
+export const IDE_MODEL_STRUCTURE = {
+  totalRequisitos: 38,
+  dimensoes: [
+    { nome: 'Governança e Estratégia', temas: ['Estratégia', 'Liderança', 'Controle/Accountability'] },
+    { nome: 'Gestão Inclusiva', temas: ['Gestão de Pessoas', 'Gestão de Contratações', 'Comunicação', 'Gestão Orçamentária'] },
+    { nome: 'Social', temas: ['Direitos Humanos', 'Relação com Sociedade', 'Relação com Usuário/Consumidor'] },
+  ],
 };
 
 export interface CycleStatusItem {
@@ -79,7 +58,7 @@ export const CYCLE_STATUS_ITEMS: CycleStatusItem[] = [
     titulo: 'Maturidade IDE (I05, I06, I07)',
     meta: 'Linha de base no 1º ciclo',
     status: 'Aguardando linha de base',
-    detalhe: 'Consolidação das 3 escalas estruturantes: Diversidade (7), Gênero (31) e Raça (31 requisitos).',
+    detalhe: 'Aplicação dos 38 requisitos do Modelo IDE, com apuração das escalas de resultado: Diversidade (0–7), Gênero (0–31) e Raça (0–31).',
     proximaEtapa: 'Cálculo dos escores médios institucionais',
   },
   {
