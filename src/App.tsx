@@ -7,7 +7,6 @@ import { IndicatorAnalyticsView } from './components/IndicatorAnalyticsView';
 import { EvidenceExplorer } from './components/EvidenceExplorer';
 import { PendingTasksPanel } from './components/PendingTasksPanel';
 import { CommandPalette } from './components/CommandPalette';
-import { ExecutiveOverview } from './components/ExecutiveOverview';
 import { DimensionMap } from './components/DimensionMap';
 import { MaturityIDE } from './components/MaturityIDE';
 import { ExecutionTracker } from './components/ExecutionTracker';
@@ -389,9 +388,6 @@ export default function App() {
               onOpenComparison={() => setComparisonOpen(true)}
               onOpenReportWithSelected={() => setReportOpen(true)}
             />
-
-            {/* Executive Overview (Editorial) */}
-            <ExecutiveOverview onSelectDimension={handleSelectDimension} />
 
             {/* 5 Strategic Dimensions */}
             <DimensionMap
