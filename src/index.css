@@ -47,3 +47,183 @@
     page-break-inside: avoid;
   }
 }
+
+
+/* ─────────────────────────────────────────────────────────────
+   Rede Equidade — Editorial Analytics visual system
+   Purely presentational: preserves component behavior and palette.
+   ───────────────────────────────────────────────────────────── */
+@layer base {
+  body {
+    min-width: 320px;
+    background: #fafaf9;
+  }
+
+  .dark body {
+    background: #0c0a09;
+  }
+
+  button, a, input, select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  button, a {
+    transition-property: color, background-color, border-color, opacity, box-shadow, transform;
+    transition-duration: 180ms;
+    transition-timing-function: cubic-bezier(.2,.8,.2,1);
+  }
+
+  button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+    outline: 2px solid rgba(120,113,108,.55);
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .app-shell {
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+    background:
+      radial-gradient(circle at 8% 5%, rgba(79,70,229,.055), transparent 25rem),
+      radial-gradient(circle at 92% 18%, rgba(13,148,136,.045), transparent 28rem),
+      radial-gradient(circle at 50% 65%, rgba(217,119,6,.028), transparent 34rem),
+      #fafaf9;
+  }
+
+  .dark .app-shell {
+    background:
+      radial-gradient(circle at 8% 5%, rgba(79,70,229,.12), transparent 28rem),
+      radial-gradient(circle at 92% 18%, rgba(13,148,136,.09), transparent 30rem),
+      #0c0a09;
+  }
+
+  .app-shell::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .22;
+    background-image: radial-gradient(rgba(68,64,60,.18) .6px, transparent .6px);
+    background-size: 18px 18px;
+    mask-image: linear-gradient(to bottom, black, transparent 70%);
+  }
+
+  .dark .app-shell::before {
+    opacity: .12;
+  }
+
+  .app-header {
+    box-shadow: 0 1px 0 rgba(255,255,255,.65), 0 12px 32px rgba(28,25,23,.035);
+  }
+
+  .dark .app-header {
+    box-shadow: 0 1px 0 rgba(255,255,255,.035), 0 12px 32px rgba(0,0,0,.18);
+  }
+
+  .command-dock {
+    backdrop-filter: blur(18px) saturate(125%);
+  }
+
+  .app-main > section {
+    position: relative;
+  }
+
+  .app-main > section:nth-of-type(even)::before {
+    content: "";
+    position: absolute;
+    inset: 1.5rem max(1rem, calc((100vw - 86rem)/2));
+    z-index: -1;
+    border-radius: 2rem;
+    background: rgba(255,255,255,.28);
+    border: 1px solid rgba(231,229,228,.55);
+  }
+
+  .dark .app-main > section:nth-of-type(even)::before {
+    background: rgba(28,25,23,.20);
+    border-color: rgba(68,64,60,.30);
+  }
+
+  .app-main section h2 {
+    letter-spacing: -.035em;
+    text-wrap: balance;
+  }
+
+  .app-main section h3 {
+    letter-spacing: -.015em;
+  }
+
+  .app-main section [class*="rounded-xl"][class*="border"],
+  .app-main section [class*="rounded-2xl"][class*="border"] {
+    box-shadow:
+      0 1px 2px rgba(28,25,23,.025),
+      0 10px 28px rgba(28,25,23,.035);
+  }
+
+  .dark .app-main section [class*="rounded-xl"][class*="border"],
+  .dark .app-main section [class*="rounded-2xl"][class*="border"] {
+    box-shadow:
+      0 1px 1px rgba(255,255,255,.025) inset,
+      0 14px 34px rgba(0,0,0,.13);
+  }
+
+  .app-main section button:not(:disabled):hover {
+    transform: translateY(-1px);
+  }
+
+  .app-main section button:not(:disabled):active {
+    transform: translateY(0) scale(.985);
+  }
+
+  .app-main table tbody tr {
+    transition: filter 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+  }
+
+  .app-main table thead th {
+    letter-spacing: .015em;
+  }
+
+  .app-main input,
+  .app-main select,
+  .command-dock input,
+  .command-dock select {
+    box-shadow: 0 1px 1px rgba(28,25,23,.025) inset;
+  }
+
+  .app-main input:focus,
+  .app-main select:focus,
+  .command-dock input:focus,
+  .command-dock select:focus {
+    box-shadow: 0 0 0 3px rgba(168,162,158,.14), 0 8px 22px rgba(28,25,23,.045);
+  }
+
+  @media (min-width: 768px) {
+    .app-main section [class*="rounded-xl"][class*="border"]:hover,
+    .app-main section [class*="rounded-2xl"][class*="border"]:hover {
+      box-shadow:
+        0 1px 2px rgba(28,25,23,.025),
+        0 16px 38px rgba(28,25,23,.055);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .app-main > section:nth-of-type(even)::before {
+      inset: .75rem .5rem;
+      border-radius: 1.5rem;
+    }
+
+    .app-main section h2 {
+      letter-spacing: -.025em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      scroll-behavior: auto !important;
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important;
+    }
+  }
+}
