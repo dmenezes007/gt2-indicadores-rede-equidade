@@ -6,7 +6,7 @@ import {
   Check,
   ChevronDown,
 } from 'lucide-react';
-import { FilterState, Priority } from '../types/indicators';
+import { FilterState } from '../types/indicators';
 import { DIMENSIONS } from '../data/dimensionsData';
 
 interface CommandBarProps {
@@ -16,7 +16,6 @@ interface CommandBarProps {
   totalCount: number;
   filteredCount: number;
   availableTypes: string[];
-  availableResponsibles: string[];
   isOpen: boolean;
   searchRef?: React.RefObject<HTMLInputElement | null>;
 }
@@ -28,7 +27,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
   totalCount,
   filteredCount,
   availableTypes,
-  availableResponsibles,
   isOpen,
   searchRef,
 }) => {
@@ -50,17 +48,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
     });
   });
 
-  filters.prioridades.forEach((p) => {
-    activeChips.push({
-      label: `Prioridade: ${p}`,
-      onRemove: () =>
-        onFilterChange({
-          ...filters,
-          prioridades: filters.prioridades.filter((item) => item !== p),
-        }),
-    });
-  });
-
   filters.periodicidades.forEach((per) => {
     activeChips.push({
       label: `Periodicidade: ${per}`,
@@ -72,17 +59,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
     });
   });
 
-  if (filters.nucleoRecomendado !== 'todos') {
-    activeChips.push({
-      label: `Núcleo: ${filters.nucleoRecomendado === 'sim' ? 'Recomendado' : 'Complementar'}`,
-      onRemove: () =>
-        onFilterChange({
-          ...filters,
-          nucleoRecomendado: 'todos',
-        }),
-    });
-  }
-
   filters.tipos.forEach((t) => {
     activeChips.push({
       label: `Tipo: ${t}`,
@@ -90,17 +66,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
         onFilterChange({
           ...filters,
           tipos: filters.tipos.filter((item) => item !== t),
-        }),
-    });
-  });
-
-  filters.responsaveis.forEach((r) => {
-    activeChips.push({
-      label: `Resp.: ${r}`,
-      onRemove: () =>
-        onFilterChange({
-          ...filters,
-          responsaveis: filters.responsaveis.filter((item) => item !== r),
         }),
     });
   });
@@ -119,13 +84,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
     onFilterChange({ ...filters, dimensoes: next });
   };
 
-  const togglePriority = (p: Priority) => {
-    const next = filters.prioridades.includes(p)
-      ? filters.prioridades.filter((item) => item !== p)
-      : [...filters.prioridades, p];
-    onFilterChange({ ...filters, prioridades: next });
-  };
-
   const togglePeriodicity = (per: string) => {
     const next = filters.periodicidades.includes(per)
       ? filters.periodicidades.filter((item) => item !== per)
@@ -140,13 +98,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
     onFilterChange({ ...filters, tipos: next });
   };
 
-  const toggleResponsible = (r: string) => {
-    const next = filters.responsaveis.includes(r)
-      ? filters.responsaveis.filter((item) => item !== r)
-      : [...filters.responsaveis, r];
-    onFilterChange({ ...filters, responsaveis: next });
-  };
-
   return (
     <section className="bg-stone-100/70 dark:bg-stone-900/60 border-b border-stone-200/80 dark:border-stone-800/80 py-3.5 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
@@ -159,7 +110,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
               type="text"
               value={filters.search}
               onChange={(e) => onFilterChange({ ...filters, search: e.target.value })}
-              placeholder="Buscar indicador, dimensão, responsável, fonte ou referência..."
+              placeholder="Buscar indicador, dimensão, fonte ou referência..."
               className="w-full pl-10 pr-9 py-2 text-sm rounded-lg bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-stone-900 dark:text-stone-100 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-400 dark:focus:ring-stone-600 transition-all shadow-xs"
             />
             {filters.search && (
@@ -196,7 +147,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
 
         {/* Multi-selection Filter Rows (collapsible or toggled) */}
         {isOpen && (
-          <div className="pt-2 border-t border-stone-200/60 dark:border-stone-800/60 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-xs animate-in fade-in duration-200">
+          <div className="pt-2 border-t border-stone-200/60 dark:border-stone-800/60 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-4 text-xs animate-in fade-in duration-200">
             {/* Dimensão Filter */}
             <div>
               <span className="font-semibold text-stone-700 dark:text-stone-300 mb-1.5 block uppercase tracking-wider text-[10px]">
@@ -217,32 +168,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
                     >
                       {active && <Check className="w-3 h-3" />}
                       <span>{dim.nomeCurto}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Prioridade Filter */}
-            <div>
-              <span className="font-semibold text-stone-700 dark:text-stone-300 mb-1.5 block uppercase tracking-wider text-[10px]">
-                Prioridade
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                {(['Muito alta', 'Alta', 'Média'] as Priority[]).map((p) => {
-                  const active = filters.prioridades.includes(p);
-                  return (
-                    <button
-                      key={p}
-                      onClick={() => togglePriority(p)}
-                      className={`px-2 py-1 rounded text-xs transition-colors flex items-center gap-1 ${
-                        active
-                          ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 font-medium'
-                          : 'bg-white dark:bg-stone-950 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-900'
-                      }`}
-                    >
-                      {active && <Check className="w-3 h-3" />}
-                      <span>{p}</span>
                     </button>
                   );
                 })}
@@ -275,44 +200,6 @@ export const CommandBar: React.FC<CommandBarProps> = ({
               </div>
             </div>
 
-            {/* Núcleo Recomendado Filter */}
-            <div>
-              <span className="font-semibold text-stone-700 dark:text-stone-300 mb-1.5 block uppercase tracking-wider text-[10px]">
-                Núcleo Recomendado
-              </span>
-              <div className="flex flex-wrap gap-1.5">
-                <button
-                  onClick={() => onFilterChange({ ...filters, nucleoRecomendado: 'todos' })}
-                  className={`px-2 py-1 rounded text-xs transition-colors ${
-                    filters.nucleoRecomendado === 'todos'
-                      ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 font-medium'
-                      : 'bg-white dark:bg-stone-950 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-900'
-                  }`}
-                >
-                  Todos (15)
-                </button>
-                <button
-                  onClick={() => onFilterChange({ ...filters, nucleoRecomendado: 'sim' })}
-                  className={`px-2 py-1 rounded text-xs transition-colors ${
-                    filters.nucleoRecomendado === 'sim'
-                      ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 font-medium'
-                      : 'bg-white dark:bg-stone-950 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-900'
-                  }`}
-                >
-                  Núcleo (14)
-                </button>
-                <button
-                  onClick={() => onFilterChange({ ...filters, nucleoRecomendado: 'nao' })}
-                  className={`px-2 py-1 rounded text-xs transition-colors ${
-                    filters.nucleoRecomendado === 'nao'
-                      ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 font-medium'
-                      : 'bg-white dark:bg-stone-950 text-stone-700 dark:text-stone-300 border border-stone-200 dark:border-stone-800 hover:bg-stone-50 dark:hover:bg-stone-900'
-                  }`}
-                >
-                  Complementar (1)
-                </button>
-              </div>
-            </div>
           </div>
         )}
 
