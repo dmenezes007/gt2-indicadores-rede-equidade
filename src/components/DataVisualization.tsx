@@ -84,7 +84,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
                   <h3 className="text-sm font-bold text-stone-900 dark:text-white flex items-center gap-2">
-                    <Layers className="w-4 h-4 text-indigo-500" />
+                    <span className="w-7 h-7 rounded-md bg-indigo-600 flex items-center justify-center shrink-0"><Layers className="w-4 h-4 text-white" /></span>
                     <span>Distribuição por Dimensão</span>
                   </h3>
                   <span className="text-[11px] text-stone-400 font-mono">15 Total</span>
@@ -122,7 +122,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
               <div>
                 <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
                   <h3 className="text-sm font-bold text-stone-900 dark:text-white flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-amber-500" />
+                    <span className="w-7 h-7 rounded-md bg-amber-600 flex items-center justify-center shrink-0"><Clock className="w-4 h-4 text-white" /></span>
                     <span>Periodicidade e Tipologia</span>
                   </h3>
                   <span className="text-[11px] text-stone-400 font-mono">Ciclos</span>
@@ -180,9 +180,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
         {/* Matriz de Cruzamento */}
           <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 shadow-xs overflow-x-auto animate-in fade-in duration-200">
             <div className="mb-4">
-              <h3 className="text-base font-bold text-stone-900 dark:text-white">
-                Matriz de Cruzamento
-              </h3>
+              <h3 className="text-base font-bold text-stone-900 dark:text-white flex items-center gap-2"><span className="w-7 h-7 rounded-md bg-teal-600 flex items-center justify-center shrink-0"><BarChart3 className="w-4 h-4 text-white" /></span><span>Matriz de Cruzamento</span></h3>
               <p className="text-xs text-stone-500 mt-1">
                 Visualização do encaixe de cada indicador no cruzamento entre os eixos estratégicos e a natureza metodológica da medida. Clique em qualquer indicador para abrir sua ficha técnica.
               </p>
