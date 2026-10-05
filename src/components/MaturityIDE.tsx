@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   ShieldCheck,
-  CheckCircle,
   ArrowUpRight,
 } from 'lucide-react';
 import { IDE_REQUIREMENTS, IDE_MODEL_STRUCTURE } from '../data/cycleData';
@@ -215,7 +214,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                 {/* Dot Matrix Waffle: 31 blocks */}
                 <div className="mt-5 pt-4 border-t border-stone-100 dark:border-stone-800">
                   <div className="flex justify-between text-[11px] text-stone-500 mb-2">
-                    <span>Matriz de 31 Requisitos</span>
+                    <span>Escala 0–31</span>
                     <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
                   </div>
                   <div className="grid grid-cols-8 sm:grid-cols-10 gap-1">
