@@ -97,7 +97,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
   );
 
   return (
-    <section id="matriz" className="scroll-mt-24 py-10 lg:py-14 border-b border-stone-200/80 dark:border-stone-800/80">
+    <section id="matriz" className="design-section design-section--matrix scroll-mt-24 py-12 lg:py-20 border-b border-stone-200/80 dark:border-stone-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
         <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-5">
           <div className="max-w-3xl">
@@ -119,7 +119,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
           </div>
         </div>
 
-        <div className="rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-sm p-3 sm:p-4">
+        <div className="matrix-surface rounded-[1.75rem] border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 shadow-sm p-3 sm:p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-[minmax(260px,1.6fr)_1fr_1fr_1fr_auto] gap-2.5">
             <label className="relative">
               <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
@@ -153,7 +153,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
           </div>
         )}
 
-        <div className="rounded-2xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 shadow-sm overflow-hidden">
+        <div className="matrix-surface rounded-[1.75rem] border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full text-xs text-left border-separate border-spacing-0">
               <thead className="sticky top-0 z-20 bg-stone-50 dark:bg-stone-950 text-stone-600 dark:text-stone-400 shadow-[0_1px_0_rgba(0,0,0,.08)]">
