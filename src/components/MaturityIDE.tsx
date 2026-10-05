@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import {
   ShieldCheck,
-  GitCompare,
   CheckCircle,
-  HelpCircle,
   ArrowUpRight,
-  Sparkles,
-  Layers,
 } from 'lucide-react';
 import { IDE_REQUIREMENTS } from '../data/cycleData';
 import { INDICATORS } from '../data/indicatorsData';
@@ -17,7 +13,6 @@ interface MaturityIDEProps {
 }
 
 export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => {
-  const [selectedCycle, setSelectedCycle] = useState<'atual' | 'anterior'>('atual');
   const [activeCategory, setActiveCategory] = useState<'diversidade' | 'genero' | 'raca'>('diversidade');
 
   const i05 = INDICATORS.find((i) => i.id === 'I05');
@@ -38,55 +33,24 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
             <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-stone-950 dark:text-white">
               Maturidade no Modelo IDE
             </h2>
-            <p className="mt-2 text-sm text-stone-600 dark:text-stone-400 max-w-2xl">
-              Estruturação das 3 escalas do Modelo IDE totalizando 69 requisitos institucionais de autoavaliação continuada.
+            <p className="mt-2 text-sm text-stone-600 dark:text-stone-400 max-w-3xl">
+              Estruturação das 3 escalas do Modelo IDE, totalizando 69 requisitos institucionais de autoavaliação continuada.
+              Cada requisito representa um critério verificável de maturidade institucional. A organização registra seu atendimento
+              no instrumento de autoavaliação e, a partir do conjunto de requisitos cumpridos em cada escala, forma-se a linha de base
+              para acompanhar a evolução da maturidade nos ciclos seguintes.
             </p>
+            <div className="mt-3 max-w-3xl rounded-xl border border-teal-200/70 dark:border-teal-900/60 bg-teal-50/60 dark:bg-teal-950/20 px-4 py-3 text-xs text-stone-700 dark:text-stone-300 leading-relaxed">
+              <strong className="text-teal-800 dark:text-teal-300">Como ler os requisitos:</strong> os blocos numerados abaixo representam
+              os requisitos que compõem cada escala — 7 em Diversidade, 31 em Gênero e 31 em Raça. Os eixos apresentados no detalhamento
+              metodológico organizam tematicamente a leitura desses requisitos; não substituem o enunciado integral do Manual do Modelo IDE.
+            </div>
           </div>
 
-          {/* Cycle Comparison Switch */}
-          <div className="flex items-center p-1 rounded-lg bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 text-xs shadow-xs self-start md:self-auto">
-            <button
-              onClick={() => setSelectedCycle('atual')}
-              className={`px-3 py-1.5 rounded-md font-medium transition-all ${
-                selectedCycle === 'atual'
-                  ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-xs'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
-              }`}
-            >
-              Ciclo Atual (2025–2026)
-            </button>
-            <button
-              onClick={() => setSelectedCycle('anterior')}
-              className={`px-3 py-1.5 rounded-md font-medium transition-all ${
-                selectedCycle === 'anterior'
-                  ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-xs'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-900'
-              }`}
-            >
-              Ciclo Anterior (Histórico)
-            </button>
-          </div>
+
         </div>
 
         {/* Previous Cycle Warning / Current Cycle Readiness */}
-        {selectedCycle === 'anterior' ? (
-          <div className="rounded-xl border border-dashed border-stone-300 dark:border-stone-700 p-8 text-center bg-white/60 dark:bg-stone-900/60">
-            <GitCompare className="w-8 h-8 text-stone-400 mx-auto mb-2" />
-            <h3 className="text-base font-bold text-stone-800 dark:text-stone-200">
-              Série Histórica Anterior Inexistente
-            </h3>
-            <p className="text-xs text-stone-500 max-w-md mx-auto mt-1">
-              Este é o primeiro ciclo institucional de aplicação padronizada do Modelo IDE na Rede. A linha de base será fixada ao término da rodada bienal vigente para permitir a mensuração longitudinal futura do indicador <strong className="text-stone-700 dark:text-stone-300">I08 (Taxa de evolução da maturidade)</strong>.
-            </p>
-            <button
-              onClick={() => setSelectedCycle('atual')}
-              className="mt-4 px-3 py-1.5 rounded bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 text-xs font-semibold"
-            >
-              Retornar ao ciclo atual
-            </button>
-          </div>
-        ) : (
-          <div className="space-y-6">
+                  <div className="space-y-6">
             {/* The 3 Core Scales Cards */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {/* Scale 1: Diversidade (7 requisitos) - I05 */}
@@ -369,7 +333,6 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
               </div>
             </div>
           </div>
-        )}
       </div>
     </section>
   );
