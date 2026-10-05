@@ -178,7 +178,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
           </div>
 
         {/* Matriz de Cruzamento */}
-          <div className="analytics-card analytics-matrix rounded-[1.75rem] border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 p-6 shadow-xs overflow-x-auto animate-in fade-in duration-200">
+          <div className="analytics-card analytics-matrix rounded-[1.75rem] border border-stone-200 dark:border-stone-800 bg-white/90 dark:bg-stone-900/90 p-6 shadow-xs overflow-hidden animate-in fade-in duration-200">
             <div className="mb-4">
               <h3 className="text-base font-bold text-stone-900 dark:text-white flex items-center gap-2"><span className="w-7 h-7 rounded-md bg-teal-600 flex items-center justify-center shrink-0"><BarChart3 className="w-4 h-4 text-white" /></span><span>Matriz de Cruzamento</span></h3>
               <p className="text-xs text-stone-500 mt-1">
@@ -186,7 +186,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
               </p>
             </div>
 
-            <table className="min-w-full text-xs border-collapse">
+            <div className="overflow-x-auto lg:overflow-x-visible"><table className="min-w-full lg:min-w-0 lg:w-full text-xs border-collapse">
               <thead>
                 <tr className="border-b border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-800/50">
                   <th className="py-2.5 px-3 text-left font-semibold text-stone-700 dark:text-stone-300">
@@ -241,7 +241,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
                   );
                 })}
               </tbody>
-            </table>
+            </table></div>
           </div>
 
       </div>
