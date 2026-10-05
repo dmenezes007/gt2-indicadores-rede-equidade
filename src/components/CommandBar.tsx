@@ -99,7 +99,7 @@ export const CommandBar: React.FC<CommandBarProps> = ({
   };
 
   return (
-    <section className="bg-stone-100/70 dark:bg-stone-900/60 border-b border-stone-200/80 dark:border-stone-800/80 py-3.5 transition-colors">
+    <section className="command-dock bg-stone-100/60 dark:bg-stone-900/50 border-b border-stone-200/70 dark:border-stone-800/70 py-3.5 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-3">
         {/* Main Search Bar & Quick Controls */}
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
