@@ -1,5 +1,3 @@
-export type Priority = 'Muito alta' | 'Alta' | 'Média';
-
 export type Periodicity =
   | 'Trimestral'
   | 'Semestral'
@@ -27,10 +25,7 @@ export interface Indicator {
   unidadeAnalise: string;
   fonte: string;
   meta: string;
-  prioridade: Priority;
   rastreabilidade: string;
-  responsavel: string;
-  nucleoRecomendado: boolean;
   observacao: string;
   interpretacao?: string;
   categoriaTipo: 'Produto / Execução' | 'Resultado / Maturidade' | 'Capacidade Institucional' | 'Cobertura' | 'Evolução / Efetividade' | 'Alcance' | 'Qualidade / Resultado' | 'Representatividade' | 'Cooperação / Disseminação';
@@ -58,9 +53,6 @@ export interface DimensionInfo {
 export interface FilterState {
   search: string;
   dimensoes: string[];
-  prioridades: Priority[];
   periodicidades: string[];
-  nucleoRecomendado: 'todos' | 'sim' | 'nao';
   tipos: string[];
-  responsaveis: string[];
 }
