@@ -1,22 +1,16 @@
-import React, { useState } from 'react';
-import { ArrowRight, CheckCircle2, ChevronRight, Layers, Sparkles } from 'lucide-react';
+import React from 'react';
+import { ChevronRight, Layers } from 'lucide-react';
 import { DIMENSIONS } from '../data/dimensionsData';
-import { INDICATORS } from '../data/indicatorsData';
-import { Indicator } from '../types/indicators';
 
 interface DimensionMapProps {
   onSelectDimension: (dimensionId: string) => void;
   selectedDimensionId?: string;
-  onOpenIndicator: (indicator: Indicator) => void;
 }
 
 export const DimensionMap: React.FC<DimensionMapProps> = ({
   onSelectDimension,
   selectedDimensionId,
-  onOpenIndicator,
 }) => {
-  const [hoveredDim, setHoveredDim] = useState<string | null>(null);
-
   return (
     <section id="dimensoes" className="scroll-mt-24 py-10 lg:py-14 border-b border-stone-200/80 dark:border-stone-800/80">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
@@ -31,7 +25,7 @@ export const DimensionMap: React.FC<DimensionMapProps> = ({
               Mapa das Cinco Dimensões Estratégicas
             </h2>
             <p className="mt-2 text-sm text-stone-600 dark:text-stone-400 max-w-2xl">
-              Clique em uma dimensão para filtrar os indicadores ou passe o mouse para inspecionar os indicadores vinculados.
+              As cinco dimensões estruturam a arquitetura de avaliação da Rede Equidade. Clique em uma dimensão para filtrar a matriz de indicadores.
             </p>
           </div>
 
@@ -49,37 +43,29 @@ export const DimensionMap: React.FC<DimensionMapProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
           {DIMENSIONS.map((dim) => {
             const isSelected = selectedDimensionId === dim.id;
-            const isHovered = hoveredDim === dim.id;
-            const dimIndicators = INDICATORS.filter((ind) =>
-              dim.indicadoresIds.includes(ind.id)
-            );
 
             return (
               <div
                 key={dim.id}
-                onMouseEnter={() => setHoveredDim(dim.id)}
-                onMouseLeave={() => setHoveredDim(null)}
                 className={`group relative rounded-xl border p-5 flex flex-col justify-between transition-all duration-300 ${
                   isSelected
-                    ? 'ring-2 ring-stone-900 dark:ring-stone-100 border-stone-900 dark:border-stone-100 bg-white dark:bg-stone-900 shadow-md scale-[1.02]'
-                    : isHovered
-                    ? 'border-stone-400 dark:border-stone-600 bg-white dark:bg-stone-900 shadow-md'
-                    : 'border-stone-200 dark:border-stone-800/80 bg-white/70 dark:bg-stone-900/50 hover:bg-white dark:hover:bg-stone-900'
+                    ? `ring-2 ring-stone-900 dark:ring-stone-100 shadow-md scale-[1.02] ${dim.cor.bgLight} ${dim.cor.borderLight}`
+                    : `${dim.cor.bgLight} ${dim.cor.borderLight} hover:shadow-md`
                 }`}
               >
                 {/* Top: Number & Indicators Count */}
                 <div>
                   <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
-                    <span className="font-mono text-xs font-bold text-stone-400 dark:text-stone-500">
+                    <span className={`font-mono text-xs font-bold ${dim.cor.textLight}`}>
                       {dim.numero}
                     </span>
-                    <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
+                    <span className={`text-xs font-mono font-semibold px-2 py-0.5 rounded-full ${dim.cor.badgeBg} ${dim.cor.badgeText}`}>
                       {dim.indicadoresIds.length} {dim.indicadoresIds.length === 1 ? 'indicador' : 'indicadores'}
                     </span>
                   </div>
 
                   {/* Dimension Name */}
-                  <h3 className="mt-3 text-base font-bold text-stone-950 dark:text-stone-100 group-hover:text-stone-900 dark:group-hover:text-white transition-colors leading-snug">
+                  <h3 className={`mt-3 text-base font-bold leading-snug ${dim.cor.textLight}`}>
                     {dim.nome}
                   </h3>
 
@@ -102,7 +88,7 @@ export const DimensionMap: React.FC<DimensionMapProps> = ({
                       {dim.indicadoresIds.map((id) => (
                         <span
                           key={id}
-                          className="h-1.5 flex-1 rounded-full bg-stone-200 dark:bg-stone-800 group-hover:bg-stone-400 dark:group-hover:bg-stone-600 transition-colors"
+                          className="h-1.5 flex-1 rounded-full" style={{ backgroundColor: dim.cor.accent }}
                         />
                       ))}
                     </div>
@@ -111,32 +97,6 @@ export const DimensionMap: React.FC<DimensionMapProps> = ({
                     </span>
                   </div>
 
-                  {/* Revealed indicators on hover or select */}
-                  {(isHovered || isSelected) && (
-                    <div className="mt-3 pt-3 border-t border-stone-100 dark:border-stone-800 space-y-1 animate-in fade-in duration-150">
-                      <span className="text-[10px] uppercase font-semibold text-stone-400 block">
-                        Indicadores vinculados:
-                      </span>
-                      {dimIndicators.map((ind) => (
-                        <button
-                          key={ind.id}
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            onOpenIndicator(ind);
-                          }}
-                          className="w-full text-left text-xs py-1 px-1.5 rounded hover:bg-stone-100 dark:hover:bg-stone-800 flex items-center justify-between text-stone-700 dark:text-stone-300 group/ind"
-                        >
-                          <span className="truncate pr-1">
-                            <strong className="font-mono text-stone-900 dark:text-white mr-1">
-                              {ind.id}
-                            </strong>
-                            {ind.indicador}
-                          </span>
-                          <ArrowRight className="w-3 h-3 text-stone-400 opacity-0 group-hover/ind:opacity-100 transition-opacity shrink-0" />
-                        </button>
-                      ))}
-                    </div>
-                  )}
                 </div>
 
                 {/* Bottom Action: Click to filter */}
