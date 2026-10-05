@@ -110,19 +110,12 @@ export default function App() {
   const [comparisonOpen, setComparisonOpen] = useState(false);
   const [reportOpen, setReportOpen] = useState(false);
   const [activeIndicator, setActiveIndicator] = useState<Indicator | null>(null);
-  const [reportIndicators, setReportIndicators] = useState<string[]>([]);
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
 
   // Global filters
   const [filters, setFilters] = useState<FilterState>(INITIAL_FILTERS);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [selectedIndicators, setSelectedIndicators] = useState<string[]>([]);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  const showToast = (msg: string) => {
-    setToastMessage(msg);
-    setTimeout(() => setToastMessage(null), 3000);
-  };
 
   // Sync state to URL without reloading
   useEffect(() => {
@@ -340,6 +333,7 @@ export default function App() {
             {/* Analytical Matrix */}
             <AnalyticsMatrix
               indicators={filteredIndicators}
+              onOpenIndicator={(ind) => setActiveIndicator(ind)}
               selectedIndicators={selectedIndicators}
               onToggleSelect={handleToggleSelect}
               onSelectAll={handleSelectAll}
@@ -352,7 +346,6 @@ export default function App() {
             <DimensionMap
               onSelectDimension={handleSelectDimension}
               selectedDimensionId={filters.dimensoes.length === 1 ? filters.dimensoes[0] : undefined}
-              onOpenIndicator={(ind) => setActiveIndicator(ind)}
             />
 
             {/* IDE Maturity Special Section */}
@@ -469,13 +462,6 @@ export default function App() {
         selectedIndicatorIds={selectedIndicators}
       />
 
-      {/* Toast Feedback */}
-      {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 text-xs font-semibold shadow-xl border border-stone-800 dark:border-stone-200 animate-in slide-in-from-bottom-3 duration-200 flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-teal-400" />
-          <span>{toastMessage}</span>
-        </div>
-      )}
     </div>
   );
 }
