@@ -24,8 +24,6 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({
     { label: 'Periodicidade', key: 'periodicidade', isHighlightDiff: true },
     { label: 'Unidade de Medida', key: 'unidade' },
     { label: 'Meta Proposta', key: 'meta', isHighlightDiff: true },
-    { label: 'Prioridade', key: 'prioridade', isHighlightDiff: true },
-    { label: 'Responsável Sugerido', key: 'responsavel' },
     { label: 'Fonte de Evidência', key: 'fonte' },
     { label: 'Fórmula de Cálculo', key: 'formula' },
     { label: 'Rastreabilidade Normativa', key: 'rastreabilidade' },
@@ -81,11 +79,6 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({
                         <span className="font-mono text-sm font-extrabold px-2 py-0.5 rounded bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950">
                           {ind.id}
                         </span>
-                        {ind.nucleoRecomendado && (
-                          <span className="text-[9px] uppercase font-bold px-1.5 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300">
-                            Núcleo
-                          </span>
-                        )}
                       </div>
                       <button
                         onClick={() => onRemoveIndicator(ind.id)}
@@ -133,9 +126,7 @@ export const ComparisonModal: React.FC<ComparisonModalProps> = ({
                       const val = ind[f.key];
                       return (
                         <td key={ind.id} className="py-3 px-4 text-stone-800 dark:text-stone-200">
-                          {f.key === 'prioridade' ? (
-                            <span className="font-semibold">{String(val)}</span>
-                          ) : f.key === 'meta' ? (
+                          {f.key === 'meta' ? (
                             <strong className="font-mono text-stone-900 dark:text-white">
                               {String(val)}
                             </strong>
