@@ -24,7 +24,7 @@ interface ReportModalProps {
   selectedIndicatorIds: string[];
 }
 
-type ReportScope = 'todos' | 'filtrados' | 'selecionados' | 'nucleo' | 'dimensao';
+type ReportScope = 'todos' | 'filtrados' | 'selecionados' | 'dimensao';
 type ReportType = 'executivo' | 'gerencial' | 'matriz' | 'fichas';
 
 export const ReportModal: React.FC<ReportModalProps> = ({
@@ -53,8 +53,6 @@ export const ReportModal: React.FC<ReportModalProps> = ({
         return allIndicators.filter((i) => selectedIndicatorIds.includes(i.id));
       case 'filtrados':
         return filteredIndicators;
-      case 'nucleo':
-        return allIndicators.filter((i) => i.nucleoRecomendado);
       case 'dimensao':
         return allIndicators.filter((i) => i.dimensaoId === selectedDimension);
       case 'todos':
@@ -129,7 +127,6 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                     label: `Somente Selecionados na Matriz (${selectedIndicatorIds.length})`,
                     disabled: selectedIndicatorIds.length === 0,
                   },
-                  { id: 'nucleo', label: 'Núcleo Recomendado (14 indicadores)' },
                   { id: 'dimensao', label: 'Filtrar por Dimensão Estratégica' },
                 ].map((item) => (
                   <label
@@ -298,12 +295,7 @@ export const ReportModal: React.FC<ReportModalProps> = ({
                         {targetIndicators.length}
                       </span>
                     </div>
-                    <div>
-                      <span className="text-[10px] text-stone-400 block">Núcleo Recomendado</span>
-                      <span className="text-base font-bold font-mono text-indigo-600">
-                        {targetIndicators.filter((i) => i.nucleoRecomendado).length}
-                      </span>
-                    </div>
+                    
                     <div>
                       <span className="text-[10px] text-stone-400 block">Horizontes</span>
                       <span className="text-xs font-semibold text-stone-700 dark:text-stone-300">
