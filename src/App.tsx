@@ -2,10 +2,8 @@ import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Header } from './components/Header';
 import { CommandBar } from './components/CommandBar';
 import { PerspectiveSelector } from './components/PerspectiveSelector';
-import { NetworkOverview } from './components/NetworkOverview';
 import { InstitutionProfile } from './components/InstitutionProfile';
 import { IndicatorAnalyticsView } from './components/IndicatorAnalyticsView';
-import { DataQualityPanel } from './components/DataQualityPanel';
 import { EvidenceExplorer } from './components/EvidenceExplorer';
 import { PendingTasksPanel } from './components/PendingTasksPanel';
 import { CommandPalette } from './components/CommandPalette';
@@ -374,17 +372,6 @@ export default function App() {
         searchRef={searchInputRef}
       />
 
-      {/* 04 — Data Quality & Audit Strip */}
-      {networkData && (
-        <DataQualityPanel
-          dataQuality={networkData.dataQuality}
-          hasData={networkData.eligibleInstitutions > 0 && networkData.reportingInstitutions > 0}
-          eligibleCount={networkData.eligibleInstitutions}
-          reportingCount={networkData.reportingInstitutions}
-          validatedCount={networkData.validatedMeasurementsCount}
-        />
-      )}
-
       {/* Main Content Areas based on Perspective */}
       <main className="flex-1 space-y-2">
         {/* PERSPECTIVA: REDE (Consolidated) */}
@@ -402,17 +389,6 @@ export default function App() {
               onOpenComparison={() => setComparisonOpen(true)}
               onOpenReportWithSelected={() => setReportOpen(true)}
             />
-
-            {/* Network Panorama (Layer 03 derived) */}
-            {networkData && (
-              <NetworkOverview
-                data={networkData}
-                indicators={indicatorDefinitions}
-                onOpenIndicator={handleOpenIndicatorById}
-                onOpenEvidenceExplorer={() => setEvidenceExplorerOpen(true)}
-                onOpenPendingTasks={() => setPendingTasksOpen(true)}
-              />
-            )}
 
             {/* Executive Overview (Editorial) */}
             <ExecutiveOverview onSelectDimension={handleSelectDimension} />
