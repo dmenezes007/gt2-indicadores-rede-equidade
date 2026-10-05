@@ -5,7 +5,6 @@ import {
   Sun,
   Moon,
   Search,
-  CheckCircle2,
 } from 'lucide-react';
 
 interface HeaderProps {
@@ -30,18 +29,18 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-stone-50/90 dark:bg-stone-950/90 border-b border-stone-200/80 dark:border-stone-800/80 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 gap-4">
+        <div className="flex flex-wrap items-center justify-between min-h-16 py-2 gap-2 sm:gap-4">
           {/* Brand Left */}
-          <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 sm:flex-none">
             <div className="w-9 h-9 rounded-lg bg-stone-900 dark:bg-stone-100 flex items-center justify-center text-white dark:text-stone-950 font-bold tracking-tight text-sm shadow-sm">
               RE
             </div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                 <span className="font-bold tracking-tight text-stone-950 dark:text-stone-50 text-base">
                   REDE EQUIDADE
                 </span>
-                <span className="text-xs px-2 py-0.5 rounded font-mono font-medium tracking-wide bg-stone-200/70 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
+                <span className="hidden sm:inline text-xs px-2 py-0.5 rounded font-mono font-medium tracking-wide bg-stone-200/70 dark:bg-stone-800 text-stone-700 dark:text-stone-300">
                   VERSÃO DE TRABALHO • 2026
                 </span>
               </div>
@@ -98,7 +97,7 @@ export const Header: React.FC<HeaderProps> = ({
           </nav>
 
           {/* Action buttons Right */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex flex-wrap items-center justify-end gap-1 sm:gap-2 shrink-0 max-w-full">
             {/* Quick search button */}
             <button
               onClick={onFocusSearch}
@@ -143,7 +142,7 @@ export const Header: React.FC<HeaderProps> = ({
               className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold rounded-lg bg-stone-900 hover:bg-stone-800 text-white dark:bg-stone-100 dark:hover:bg-white dark:text-stone-950 shadow-sm transition-all"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Gerar Relatório</span>
+              <span className="hidden sm:inline">Gerar Relatório</span><span className="sm:hidden">Relatório</span>
             </button>
           </div>
         </div>
