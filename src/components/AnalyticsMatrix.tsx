@@ -6,7 +6,7 @@ import {
   X, Layers3,
 } from 'lucide-react';
 import { Indicator } from '../types/indicators';
-import { exportIndicatorsToCSV, getPriorityBadgeClass } from '../utils/helpers';
+import { exportIndicatorsToCSV } from '../utils/helpers';
 
 interface AnalyticsMatrixProps {
   indicators: Indicator[];
@@ -19,7 +19,7 @@ interface AnalyticsMatrixProps {
   onOpenReportWithSelected: () => void;
 }
 
-type SortField = 'id' | 'indicador' | 'dimensao' | 'tipo' | 'periodicidade' | 'prioridade' | 'nucleoRecomendado' | 'responsavel';
+type SortField = 'id' | 'indicador' | 'dimensao' | 'tipo' | 'periodicidade';
 type SortDirection = 'asc' | 'desc';
 
 export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
@@ -54,8 +54,8 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
     if (periodicityFilter !== 'todas') result = result.filter(i => i.periodicidade === periodicityFilter);
 
     result.sort((a, b) => {
-      let valA: string | number = sortField === 'nucleoRecomendado' ? (a.nucleoRecomendado ? 1 : 0) : String(a[sortField] ?? '');
-      let valB: string | number = sortField === 'nucleoRecomendado' ? (b.nucleoRecomendado ? 1 : 0) : String(b[sortField] ?? '');
+      const valA = String(a[sortField] ?? '');
+      const valB = String(b[sortField] ?? '');
       const comparison = typeof valA === 'string'
         ? valA.localeCompare(String(valB), 'pt-BR', { numeric: true, sensitivity: 'base' })
         : Number(valA) - Number(valB);
@@ -100,7 +100,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
 
   return (
     <section id="matriz" className="scroll-mt-24 py-10 lg:py-14 border-b border-stone-200/80 dark:border-stone-800/80">
-      <div className="max-w-[1500px] mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-5">
         <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-5">
           <div className="max-w-3xl">
             <div className="flex items-center gap-2 text-xs font-semibold tracking-wider uppercase text-stone-500 dark:text-stone-400 mb-1.5">
@@ -169,10 +169,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
                   <SortHeader field="dimensao" className="min-w-[170px]">Dimensão</SortHeader>
                   <SortHeader field="tipo">Tipo</SortHeader>
                   <SortHeader field="periodicidade">Periodicidade</SortHeader>
-                  <th className="py-3 px-3 min-w-[160px]">Meta Pactuada</th>
-                  <SortHeader field="prioridade">Prioridade</SortHeader>
-                  <SortHeader field="responsavel" className="min-w-[170px]">Responsável</SortHeader>
-                  <SortHeader field="nucleoRecomendado">Núcleo</SortHeader>
+                  <th className="py-3 px-3 min-w-[180px]"><div className="flex flex-col gap-0.5"><span>Meta Proposta</span><span className="normal-case font-normal text-[9px] text-stone-400">Sujeita à pactuação institucional</span></div></th>
                   {showExtraColumns && <><th className="py-3 px-3 min-w-[220px]">Fonte</th><th className="py-3 px-3 min-w-[220px]">Rastreabilidade</th></>}
                 </tr>
               </thead>
@@ -180,8 +177,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
                 {processedIndicators.map(ind => {
                   const isSelected = selectedIndicators.includes(ind.id);
                   const isExpanded = expandedRows.includes(ind.id);
-                  const priorityStyle = getPriorityBadgeClass(ind.prioridade);
-                  const columnCount = showExtraColumns ? 13 : 11;
+                  const columnCount = showExtraColumns ? 10 : 8;
                   return <React.Fragment key={ind.id}>
                     <tr className={`border-b border-stone-100 dark:border-stone-800 transition-colors ${isSelected ? 'bg-amber-50/70 dark:bg-amber-950/20' : 'hover:bg-stone-50 dark:hover:bg-stone-800/40'}`}>
                       <td onClick={() => onToggleSelect(ind.id)} className="py-3 px-2 text-center cursor-pointer">{isSelected ? <CheckSquare className="w-4 h-4 mx-auto" /> : <Square className="w-4 h-4 mx-auto text-stone-400" />}</td>
@@ -192,9 +188,6 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
                       <td className="py-3 px-3 font-mono text-[10px]">{ind.tipo}</td>
                       <td className="py-3 px-3">{ind.periodicidade}</td>
                       <td className="py-3 px-3 font-medium">{ind.meta}</td>
-                      <td className="py-3 px-3"><span className="inline-flex items-center gap-1.5"><span className={`w-2 h-2 rounded-full ${priorityStyle.dot}`} />{ind.prioridade}</span></td>
-                      <td className="py-3 px-3">{ind.responsavel}</td>
-                      <td className="py-3 px-3 text-center"><span className={`text-[10px] font-bold px-2 py-1 rounded-full ${ind.nucleoRecomendado ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-700 dark:text-indigo-300' : 'bg-stone-100 dark:bg-stone-800 text-stone-500'}`}>{ind.nucleoRecomendado ? 'Sim' : 'Não'}</span></td>
                       {showExtraColumns && <><td className="py-3 px-3 text-[11px]">{ind.fonte}</td><td className="py-3 px-3 text-[11px]">{ind.rastreabilidade}</td></>}
                     </tr>
                     {isExpanded && <tr className="bg-stone-50/80 dark:bg-stone-950/55">
@@ -209,7 +202,7 @@ export const AnalyticsMatrix: React.FC<AnalyticsMatrixProps> = ({
                     </tr>}
                   </React.Fragment>;
                 })}
-                {processedIndicators.length === 0 && <tr><td colSpan={13} className="py-14 text-center text-stone-500">Nenhum indicador corresponde aos filtros aplicados.</td></tr>}
+                {processedIndicators.length === 0 && <tr><td colSpan={10} className="py-14 text-center text-stone-500">Nenhum indicador corresponde aos filtros aplicados.</td></tr>}
               </tbody>
             </table>
           </div>
