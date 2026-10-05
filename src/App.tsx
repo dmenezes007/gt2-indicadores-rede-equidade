@@ -236,7 +236,7 @@ export default function App() {
 
 
   return (
-    <div className="min-h-screen flex flex-col bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors">
+    <div className="app-shell min-h-screen flex flex-col bg-stone-50 dark:bg-stone-950 text-stone-900 dark:text-stone-100 transition-colors">
       {/* 01 — Header institucional */}
       <Header
         darkMode={darkMode}
@@ -263,7 +263,7 @@ export default function App() {
       />
 
       {/* Main Content */}
-      <main className="flex-1 space-y-2">
+      <main className="app-main flex-1 space-y-2">
         <>
             {/* Matriz de Indicadores */}
             <AnalyticsMatrix
