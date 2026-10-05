@@ -32,9 +32,6 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex flex-wrap items-center justify-between min-h-16 py-2 gap-2 sm:gap-4">
           {/* Brand Left */}
           <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1 sm:flex-none">
-            <div className="w-9 h-9 rounded-lg bg-stone-900 dark:bg-stone-100 flex items-center justify-center text-white dark:text-stone-950 font-bold tracking-tight text-sm shadow-sm">
-              RE
-            </div>
             <div>
               <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
                 <span className="font-bold tracking-tight text-stone-950 dark:text-stone-50 text-base">
