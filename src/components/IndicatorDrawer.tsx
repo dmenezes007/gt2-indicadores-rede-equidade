@@ -67,15 +67,15 @@ Painel de Indicadores GT2 • Rede Equidade (2026)
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden" aria-labelledby="slide-over-title" role="dialog" aria-modal="true">
+    <div className="fixed inset-0 z-50 overflow-y-auto p-4 sm:p-6 flex items-center justify-center" aria-labelledby="indicator-modal-title" role="dialog" aria-modal="true">
       {/* Background backdrop */}
       <div
         onClick={onClose}
         className="fixed inset-0 bg-stone-900/60 backdrop-blur-xs transition-opacity animate-in fade-in duration-200"
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-2xl bg-white dark:bg-stone-950 border-l border-stone-200 dark:border-stone-800 shadow-2xl flex flex-col justify-between animate-in slide-in-from-right duration-300">
+      <div className="relative z-10 w-full max-w-3xl max-h-[90vh] flex">
+        <div className="w-full max-h-[90vh] overflow-hidden rounded-3xl bg-white dark:bg-stone-950 border border-stone-200 dark:border-stone-800 shadow-2xl flex flex-col justify-between animate-in fade-in zoom-in-95 duration-200">
           {/* Header */}
           <div className="p-6 border-b border-stone-200 dark:border-stone-800 bg-stone-50/80 dark:bg-stone-900/50">
             <div className="flex items-center justify-between">
@@ -96,13 +96,13 @@ Painel de Indicadores GT2 • Rede Equidade (2026)
               <button
                 onClick={onClose}
                 className="p-1.5 rounded-lg text-stone-400 hover:text-stone-900 dark:hover:text-white hover:bg-stone-200/60 dark:hover:bg-stone-800 transition-colors"
-                aria-label="Fechar drawer"
+                aria-label="Fechar ficha técnica"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <h2 id="slide-over-title" className="mt-3 text-xl font-extrabold text-stone-950 dark:text-white leading-tight">
+            <h2 id="indicator-modal-title" className="mt-3 text-xl font-extrabold text-stone-950 dark:text-white leading-tight">
               {indicator.indicador}
             </h2>
             <p className="mt-1 text-xs text-stone-500 font-mono">
@@ -174,7 +174,7 @@ Painel de Indicadores GT2 • Rede Equidade (2026)
             <div className="space-y-1.5">
               <h4 className="text-xs font-bold uppercase tracking-wider text-stone-900 dark:text-stone-100 flex items-center gap-1.5">
                 <ShieldCheck className="w-3.5 h-3.5 text-teal-500" />
-                <span>Meta Pactuada</span>
+                <span>Meta Proposta</span>
               </h4>
               <div className="p-3 rounded-lg bg-teal-50/50 dark:bg-teal-950/20 border border-teal-100 dark:border-teal-900/40">
                 <span className="text-sm font-bold text-teal-900 dark:text-teal-300 font-mono">
