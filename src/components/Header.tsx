@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   FileText,
   SlidersHorizontal,
@@ -26,6 +26,40 @@ export const Header: React.FC<HeaderProps> = ({
   activeFilterCount,
   onFocusSearch,
 }) => {
+  const sections = [
+    { id: 'matriz', label: 'Matriz' },
+    { id: 'dimensoes', label: 'Dimensões' },
+    { id: 'maturidade-ide', label: 'Maturidade IDE' },
+    { id: 'analise', label: 'Análise' },
+  ];
+  const [activeSection, setActiveSection] = useState('matriz');
+
+  useEffect(() => {
+    const updateActiveSection = () => {
+      const activationLine = Math.min(220, window.innerHeight * 0.28);
+      let current = sections[0].id;
+
+      sections.forEach(({ id }) => {
+        const element = document.getElementById(id);
+        if (element && element.getBoundingClientRect().top <= activationLine) {
+          current = id;
+        }
+      });
+
+      const nearBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      if (nearBottom) current = sections[sections.length - 1].id;
+      setActiveSection(current);
+    };
+
+    updateActiveSection();
+    window.addEventListener('scroll', updateActiveSection, { passive: true });
+    window.addEventListener('resize', updateActiveSection);
+    return () => {
+      window.removeEventListener('scroll', updateActiveSection);
+      window.removeEventListener('resize', updateActiveSection);
+    };
+  }, []);
+
   return (
     <header className="app-header sticky top-0 z-40 w-full backdrop-blur-xl bg-stone-50/80 dark:bg-stone-950/80 border-b border-stone-200/70 dark:border-stone-800/70 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -49,20 +83,30 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Section navigation — semantic anchors styled as buttons */}
           <nav className="hidden lg:flex items-center gap-1.5 p-1 rounded-xl bg-white/65 dark:bg-stone-900/65 border border-stone-200/70 dark:border-stone-800/70 shadow-sm" aria-label="Navegação pelas seções do painel">
-            {[
-              ['#matriz', 'Matriz'],
-              ['#dimensoes', 'Dimensões'],
-              ['#maturidade-ide', 'Maturidade IDE'],
-              ['#analise', 'Análise'],
-            ].map(([href, label]) => (
-              <a
-                key={href}
-                href={href}
-                className="px-3 py-2 rounded-lg text-[11px] font-semibold text-stone-600 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-white dark:hover:bg-stone-800 hover:shadow-sm transition-all whitespace-nowrap"
-              >
-                {label}
-              </a>
-            ))}
+            {sections.map(({ id, label }) => {
+              const isActive = activeSection === id;
+              return (
+                <a
+                  key={id}
+                  href={`#${id}`}
+                  onClick={() => setActiveSection(id)}
+                  aria-current={isActive ? 'location' : undefined}
+                  className={`relative px-3 py-2 rounded-lg text-[11px] font-semibold transition-all whitespace-nowrap ${
+                    isActive
+                      ? 'bg-stone-900 text-white dark:bg-stone-100 dark:text-stone-950 shadow-md'
+                      : 'text-stone-600 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-white dark:hover:bg-stone-800 hover:shadow-sm'
+                  }`}
+                >
+                  {label}
+                  <span
+                    aria-hidden="true"
+                    className={`absolute left-1/2 -translate-x-1/2 -bottom-1 w-1 h-1 rounded-full transition-all ${
+                      isActive ? 'bg-amber-400 opacity-100 scale-100' : 'opacity-0 scale-0'
+                    }`}
+                  />
+                </a>
+              );
+            })}
           </nav>
 
           {/* Action buttons Right */}
