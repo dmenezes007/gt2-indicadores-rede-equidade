@@ -142,17 +142,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
               <Grid className="w-3.5 h-3.5" />
               <span>Matriz Dimensão × Tipo</span>
             </button>
-            <button
-              onClick={() => setActiveTab('responsaveis')}
-              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md font-medium transition-all ${
-                activeTab === 'responsaveis'
-                  ? 'bg-white dark:bg-stone-800 text-stone-950 dark:text-white shadow-xs'
-                  : 'text-stone-600 dark:text-stone-400 hover:text-stone-950'
-              }`}
-            >
-              <Network className="w-3.5 h-3.5" />
-              <span>Mapa de Responsabilidades</span>
-            </button>
+
           </div>
         </div>
 
@@ -194,70 +184,6 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
 
               <div className="mt-6 pt-3 border-t border-stone-100 dark:border-stone-800 text-[11px] text-stone-400">
                 Modelo IDE e Governança concentram 53.3% dos indicadores monitorados.
-              </div>
-            </div>
-
-            {/* B. Distribuição por Prioridade & D. Núcleo Recomendado */}
-            <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 flex flex-col justify-between shadow-xs">
-              <div>
-                <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
-                  <h3 className="text-sm font-bold text-stone-900 dark:text-white flex items-center gap-2">
-                    <PieChart className="w-4 h-4 text-teal-500" />
-                    <span>B. Prioridade & Núcleo</span>
-                  </h3>
-                  <span className="text-[11px] text-stone-400 font-mono">Estratégico</span>
-                </div>
-
-                {/* Priority Breakdown */}
-                <div className="mt-5">
-                  <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider block mb-2 text-[10px]">
-                    Nível de Prioridade Técnica
-                  </span>
-                  <div className="space-y-2.5">
-                    {priorityCount.map((p) => (
-                      <div key={p.priority} className="flex items-center justify-between text-xs">
-                        <div className="flex items-center gap-2">
-                          <span className={`w-2.5 h-2.5 rounded-full ${p.color}`} />
-                          <span className="text-stone-700 dark:text-stone-300 font-medium">
-                            {p.priority}
-                          </span>
-                        </div>
-                        <span className="font-mono text-stone-600 dark:text-stone-400 font-semibold">
-                          {p.count} ind. ({p.percent}%)
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* D. Núcleo Recomendado */}
-                <div className="mt-6 pt-4 border-t border-stone-100 dark:border-stone-800">
-                  <span className="text-xs font-semibold text-stone-500 uppercase tracking-wider block mb-2 text-[10px]">
-                    D. Núcleo Recomendado vs. Complementar
-                  </span>
-                  <div className="p-3 rounded-lg bg-stone-50 dark:bg-stone-800/60 border border-stone-200/60 dark:border-stone-700/60 space-y-2">
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="font-medium text-stone-800 dark:text-stone-200">
-                        Núcleo Recomendado (I01–I10, I12–I15)
-                      </span>
-                      <span className="font-mono font-bold text-stone-900 dark:text-white">
-                        14
-                      </span>
-                    </div>
-                    <div className="flex justify-between items-center text-xs">
-                      <span className="text-stone-500">
-                        Complementar de Alcance (I11)
-                      </span>
-                      <span className="font-mono font-medium text-amber-600">
-                        1
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-3 border-t border-stone-100 dark:border-stone-800 text-[11px] text-stone-400">
-                Prioridade alta reflete importância estrutural para o plano do biênio.
               </div>
             </div>
 
@@ -393,76 +319,7 @@ export const DataVisualization: React.FC<DataVisualizationProps> = ({
           </div>
         )}
 
-        {/* Tab 3: Responsibility Map (G) */}
-        {activeTab === 'responsaveis' && (
-          <div className="rounded-xl border border-stone-200 dark:border-stone-800 bg-white dark:bg-stone-900 p-6 shadow-xs animate-in fade-in duration-200 space-y-6">
-            <div>
-              <h3 className="text-base font-bold text-stone-900 dark:text-white">
-                G. Mapa de Responsabilidades Institucionais
-              </h3>
-              <p className="text-xs text-stone-500 mt-1">
-                Pactuação de responsabilidade para coleta, validação documental e consolidação dos indicadores. Clique em uma instância para destacar seus indicadores.
-              </p>
-            </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {responsibleEntities.map((entity) => {
-                const isSelected = selectedEntity === entity.id;
-                return (
-                  <div
-                    key={entity.id}
-                    onClick={() => setSelectedEntity(isSelected ? null : entity.id)}
-                    className={`cursor-pointer rounded-xl border p-4 transition-all ${
-                      isSelected
-                        ? 'border-indigo-600 dark:border-indigo-400 ring-2 ring-indigo-500 bg-indigo-50/50 dark:bg-indigo-950/30'
-                        : 'border-stone-200 dark:border-stone-800 hover:border-stone-400 bg-stone-50/50 dark:bg-stone-800/40'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] uppercase font-bold tracking-wider text-stone-400">
-                        Instância Responsável
-                      </span>
-                      <span className="font-mono text-xs font-bold px-2 py-0.5 rounded-full bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700">
-                        {entity.indicadores.length} ind.
-                      </span>
-                    </div>
-
-                    <h4 className="text-sm font-bold text-stone-900 dark:text-white">
-                      {entity.nome}
-                    </h4>
-                    <p className="mt-1 text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
-                      {entity.descricao}
-                    </p>
-
-                    <div className="mt-4 pt-3 border-t border-stone-200/70 dark:border-stone-700/60">
-                      <span className="text-[10px] font-semibold text-stone-400 block mb-1">
-                        Indicadores sob gestão:
-                      </span>
-                      <div className="flex flex-wrap gap-1">
-                        {entity.indicadores.map((id) => {
-                          const ind = INDICATORS.find((i) => i.id === id);
-                          return (
-                            <button
-                              key={id}
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                if (ind) onOpenIndicator(ind);
-                              }}
-                              className="px-1.5 py-0.5 rounded text-[10px] font-mono font-semibold bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 hover:bg-stone-900 hover:text-white dark:hover:bg-white dark:hover:text-stone-950 transition-colors"
-                              title={ind?.indicador}
-                            >
-                              {id}
-                            </button>
-                          );
-                        })}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
       </div>
     </section>
   );
