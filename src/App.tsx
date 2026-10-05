@@ -35,17 +35,14 @@ import {
   Perspective,
   UserRole,
 } from './types/dataModels';
-import { FilterState, Indicator, Priority } from './types/indicators';
+import { FilterState, Indicator } from './types/indicators';
 import { INDICATORS } from './data/indicatorsData';
 
 const INITIAL_FILTERS: FilterState = {
   search: '',
   dimensoes: [],
-  prioridades: [],
   periodicidades: [],
-  nucleoRecomendado: 'todos',
   tipos: [],
-  responsaveis: [],
 };
 
 export default function App() {
@@ -192,10 +189,6 @@ export default function App() {
     return Array.from(new Set(INDICATORS.map((i) => i.categoriaTipo)));
   }, []);
 
-  const availableResponsibles = useMemo(() => {
-    return Array.from(new Set(INDICATORS.map((i) => i.responsavel)));
-  }, []);
-
   // Filtered indicators dataset
   const filteredIndicators = useMemo(() => {
     return INDICATORS.filter((ind) => {
@@ -206,7 +199,6 @@ export default function App() {
           ind.id.toLowerCase().includes(q) ||
           ind.indicador.toLowerCase().includes(q) ||
           ind.dimensao.toLowerCase().includes(q) ||
-          ind.responsavel.toLowerCase().includes(q) ||
           ind.fonte.toLowerCase().includes(q) ||
           ind.rastreabilidade.toLowerCase().includes(q) ||
           ind.definicao.toLowerCase().includes(q);
@@ -218,28 +210,14 @@ export default function App() {
         if (!filters.dimensoes.includes(ind.dimensaoId)) return false;
       }
 
-      // Priority
-      if (filters.prioridades.length > 0) {
-        if (!filters.prioridades.includes(ind.prioridade)) return false;
-      }
-
       // Periodicity
       if (filters.periodicidades.length > 0) {
         if (!filters.periodicidades.includes(ind.periodicidade)) return false;
       }
 
-      // Nucleo recomendado
-      if (filters.nucleoRecomendado === 'sim' && !ind.nucleoRecomendado) return false;
-      if (filters.nucleoRecomendado === 'nao' && ind.nucleoRecomendado) return false;
-
       // Types
       if (filters.tipos.length > 0) {
         if (!filters.tipos.includes(ind.categoriaTipo)) return false;
-      }
-
-      // Responsibles
-      if (filters.responsaveis.length > 0) {
-        if (!filters.responsaveis.includes(ind.responsavel)) return false;
       }
 
       return true;
@@ -249,11 +227,8 @@ export default function App() {
   const activeFilterCount = useMemo(() => {
     let count = 0;
     if (filters.dimensoes.length > 0) count += filters.dimensoes.length;
-    if (filters.prioridades.length > 0) count += filters.prioridades.length;
     if (filters.periodicidades.length > 0) count += filters.periodicidades.length;
-    if (filters.nucleoRecomendado !== 'todos') count += 1;
     if (filters.tipos.length > 0) count += filters.tipos.length;
-    if (filters.responsaveis.length > 0) count += filters.responsaveis.length;
     return count;
   }, [filters]);
 
@@ -296,17 +271,6 @@ export default function App() {
     if (found) {
       setActiveIndicator(found);
     }
-  };
-
-  const handleAddToReport = (indicator: Indicator) => {
-    setReportIndicators((prev) => {
-      if (prev.includes(indicator.id)) {
-        showToast(`Indicador ${indicator.id} já está no relatório.`);
-        return prev;
-      }
-      showToast(`Indicador ${indicator.id} adicionado ao relatório.`);
-      return [...prev, indicator.id];
-    });
   };
 
   const comparedIndicatorsList = useMemo(() => {
@@ -363,7 +327,6 @@ export default function App() {
         totalCount={INDICATORS.length}
         filteredCount={filteredIndicators.length}
         availableTypes={availableTypes}
-        availableResponsibles={availableResponsibles}
         isOpen={filtersOpen}
         searchRef={searchInputRef}
       />
@@ -377,7 +340,6 @@ export default function App() {
             {/* Analytical Matrix */}
             <AnalyticsMatrix
               indicators={filteredIndicators}
-              onOpenIndicator={(ind) => setActiveIndicator(ind)}
               selectedIndicators={selectedIndicators}
               onToggleSelect={handleToggleSelect}
               onSelectAll={handleSelectAll}
@@ -439,8 +401,6 @@ export default function App() {
       <IndicatorDrawer
         indicator={activeIndicator}
         onClose={() => setActiveIndicator(null)}
-        onAddToReport={handleAddToReport}
-        isInReport={activeIndicator ? reportIndicators.includes(activeIndicator.id) : false}
       />
 
       {/* Evidence Explorer Modal */}
