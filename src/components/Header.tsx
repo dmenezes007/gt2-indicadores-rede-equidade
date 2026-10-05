@@ -47,50 +47,22 @@ export const Header: React.FC<HeaderProps> = ({
             </div>
           </div>
 
-          {/* Navigation Anchors - Center (Desktop) */}
-          <nav className="hidden lg:flex items-center gap-6 text-xs font-medium text-stone-600 dark:text-stone-300">
-            <a
-              href="#visao-executiva"
-              className="hover:text-stone-950 dark:hover:text-white transition-colors"
-            >
-              Visão Executiva
-            </a>
-            <a
-              href="#dimensoes"
-              className="hover:text-stone-950 dark:hover:text-white transition-colors"
-            >
-              Dimensões
-            </a>
-            <a
-              href="#maturidade-ide"
-              className="hover:text-stone-950 dark:hover:text-white transition-colors"
-            >
-              Maturidade IDE
-            </a>
-            <a
-              href="#analise"
-              className="hover:text-stone-950 dark:hover:text-white transition-colors"
-            >
-              Análise
-            </a>
-            <a
-              href="#indicadores"
-              className="hover:text-stone-950 dark:hover:text-white transition-colors"
-            >
-              Indicadores
-            </a>
-            <a
-              href="#matriz"
-              className="hover:text-stone-950 dark:hover:text-white transition-colors"
-            >
-              Matriz
-            </a>
-            <a
-              href="#diretrizes"
-              className="hover:text-stone-950 dark:hover:text-white transition-colors"
-            >
-              Diretrizes
-            </a>
+          {/* Section navigation — semantic anchors styled as buttons */}
+          <nav className="hidden lg:flex items-center gap-1.5 p-1 rounded-xl bg-white/65 dark:bg-stone-900/65 border border-stone-200/70 dark:border-stone-800/70 shadow-sm" aria-label="Navegação pelas seções do painel">
+            {[
+              ['#matriz', 'Matriz'],
+              ['#dimensoes', 'Dimensões'],
+              ['#maturidade-ide', 'Maturidade IDE'],
+              ['#analise', 'Análise'],
+            ].map(([href, label]) => (
+              <a
+                key={href}
+                href={href}
+                className="px-3 py-2 rounded-lg text-[11px] font-semibold text-stone-600 dark:text-stone-300 hover:text-stone-950 dark:hover:text-white hover:bg-white dark:hover:bg-stone-800 hover:shadow-sm transition-all whitespace-nowrap"
+              >
+                {label}
+              </a>
+            ))}
           </nav>
 
           {/* Action buttons Right */}
