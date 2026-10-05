@@ -27,7 +27,7 @@ export const Header: React.FC<HeaderProps> = ({
   onFocusSearch,
 }) => {
   return (
-    <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-stone-50/90 dark:bg-stone-950/90 border-b border-stone-200/80 dark:border-stone-800/80 transition-colors">
+    <header className="app-header sticky top-0 z-40 w-full backdrop-blur-xl bg-stone-50/80 dark:bg-stone-950/80 border-b border-stone-200/70 dark:border-stone-800/70 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-center justify-between min-h-16 py-2 gap-2 sm:gap-4">
           {/* Brand Left */}
