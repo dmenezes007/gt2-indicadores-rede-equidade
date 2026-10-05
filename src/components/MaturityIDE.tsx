@@ -3,7 +3,6 @@ import {
   ShieldCheck,
   ArrowUpRight,
 } from 'lucide-react';
-import { IDE_REQUIREMENTS, IDE_MODEL_STRUCTURE } from '../data/cycleData';
 import { IDE_OFFICIAL_REQUIREMENTS } from '../data/ideRequirements';
 import { INDICATORS } from '../data/indicatorsData';
 import { Indicator } from '../types/indicators';
@@ -13,8 +12,6 @@ interface MaturityIDEProps {
 }
 
 export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => {
-  const [activeCategory, setActiveCategory] = useState<'diversidade' | 'genero' | 'raca'>('diversidade');
-
   const i05 = INDICATORS.find((i) => i.id === 'I05');
   const i06 = INDICATORS.find((i) => i.id === 'I06');
   const i07 = INDICATORS.find((i) => i.id === 'I07');
@@ -22,19 +19,19 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
   const [openRequirement, setOpenRequirement] = useState<number | null>(null);
   const requirementsFor = (category: 'diversidade' | 'genero' | 'raca') => IDE_OFFICIAL_REQUIREMENTS.filter((req) => req.categories.includes(category));
 
-  const requirementGrid = (category: 'diversidade' | 'genero' | 'raca', tone: string) => (
+  const requirementGrid = (category: 'diversidade' | 'genero' | 'raca', tone: string, tooltipTone: string) => (
     <div className={`grid ${category === 'diversidade' ? 'grid-cols-7' : 'grid-cols-8 sm:grid-cols-10'} gap-1.5`}>
       {requirementsFor(category).map((req) => (
         <div key={req.id} className="group relative">
           <button type="button" onClick={(e) => { e.stopPropagation(); setOpenRequirement(openRequirement === req.id ? null : req.id); }} aria-expanded={openRequirement === req.id} aria-label={`Requisito ${req.id}: ${req.question}`} className={`w-full ${category === 'diversidade' ? 'h-8' : 'h-7'} rounded-md border ${tone} flex items-center justify-center text-[10px] font-mono font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-offset-1`}>
             {req.id}
           </button>
-          <div className={`${openRequirement === req.id ? 'block' : 'hidden group-hover:block group-focus-within:block'} absolute z-40 bottom-full mb-2 w-[min(20rem,calc(100vw-2rem))] ${req.id % 5 < 2 ? 'left-0' : 'right-0'} rounded-xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-950 p-4 shadow-xl text-left`}>
-            <div className="text-[10px] font-mono font-bold text-teal-700 dark:text-teal-400">REQUISITO {req.id}</div>
-            <div className="mt-1 text-[10px] font-semibold text-stone-400">{req.dimension} • {req.theme}</div>
-            <p className="mt-2 text-xs font-semibold leading-relaxed text-stone-900 dark:text-white">{req.question}</p>
-            <p className="mt-2 pt-2 border-t border-stone-100 dark:border-stone-800 text-[11px] leading-relaxed text-stone-600 dark:text-stone-400">{req.explanation}</p>
-            <div className="mt-2 text-[9px] uppercase tracking-wider font-semibold text-stone-400">Resposta: Sim ou Não</div>
+          <div className={`${openRequirement === req.id ? 'block' : 'hidden group-hover:block group-focus-within:block'} absolute z-40 bottom-full mb-2 w-[min(20rem,calc(100vw-2rem))] ${req.id % 5 < 2 ? 'left-0' : 'right-0'} rounded-xl border p-4 shadow-xl text-left ${tooltipTone}`}>
+            <div className="text-[10px] font-mono font-bold opacity-80">REQUISITO {req.id}</div>
+            <div className="mt-1 text-[10px] font-semibold opacity-60">{req.dimension} • {req.theme}</div>
+            <p className="mt-2 text-xs font-semibold leading-relaxed">{req.question}</p>
+            <p className="mt-2 pt-2 border-t border-current/10 text-[11px] leading-relaxed opacity-80">{req.explanation}</p>
+            <div className="mt-2 text-[9px] uppercase tracking-wider font-semibold opacity-60">Resposta: Sim ou Não</div>
           </div>
         </div>
       ))}
@@ -71,12 +68,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
               {/* Scale 1: Diversidade (7 requisitos) - I05 */}
               <div
-                onClick={() => setActiveCategory('diversidade')}
-                className={`cursor-pointer rounded-xl border p-6 bg-white dark:bg-stone-900 transition-all ${
-                  activeCategory === 'diversidade'
-                    ? 'ring-2 ring-teal-600 dark:ring-teal-400 border-teal-600 dark:border-teal-400 shadow-md'
-                    : 'border-stone-200 dark:border-stone-800 hover:border-stone-400'
-                }`}
+                className={`cursor-pointer rounded-xl border p-6 bg-white dark:bg-stone-900 transition-all border-teal-200 dark:border-teal-900/70 hover:border-teal-500 shadow-sm`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-teal-50 dark:bg-teal-950/60 text-teal-800 dark:text-teal-300">
@@ -105,7 +97,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                     <span>Escala 0–7</span>
                     <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
                   </div>
-                  {requirementGrid('diversidade', 'border-teal-200 dark:border-teal-800/60 bg-teal-50/70 dark:bg-teal-950/30 text-teal-800 dark:text-teal-300 hover:border-teal-500')}
+                  {requirementGrid('diversidade', 'border-teal-200 dark:border-teal-800/60 bg-teal-50/70 dark:bg-teal-950/30 text-teal-800 dark:text-teal-300 hover:border-teal-500', 'border-teal-200 dark:border-teal-800 bg-teal-50 dark:bg-teal-950 text-teal-950 dark:text-teal-100')}
                 </div>
 
                 {/* Link to Indicator */}
@@ -128,12 +120,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
 
               {/* Scale 2: Gênero (31 requisitos) - I06 */}
               <div
-                onClick={() => setActiveCategory('genero')}
-                className={`cursor-pointer rounded-xl border p-6 bg-white dark:bg-stone-900 transition-all ${
-                  activeCategory === 'genero'
-                    ? 'ring-2 ring-indigo-600 dark:ring-indigo-400 border-indigo-600 dark:border-indigo-400 shadow-md'
-                    : 'border-stone-200 dark:border-stone-800 hover:border-stone-400'
-                }`}
+                className={`cursor-pointer rounded-xl border p-6 bg-white dark:bg-stone-900 transition-all border-indigo-200 dark:border-indigo-900/70 hover:border-indigo-500 shadow-sm`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-indigo-50 dark:bg-indigo-950/60 text-indigo-800 dark:text-indigo-300">
@@ -162,7 +149,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                     <span>Escala 0–31</span>
                     <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
                   </div>
-                  {requirementGrid('genero', 'border-indigo-200 dark:border-indigo-800/60 bg-indigo-50/70 dark:bg-indigo-950/30 text-indigo-800 dark:text-indigo-300 hover:border-indigo-500')}
+                  {requirementGrid('genero', 'border-indigo-200 dark:border-indigo-800/60 bg-indigo-50/70 dark:bg-indigo-950/30 text-indigo-800 dark:text-indigo-300 hover:border-indigo-500', 'border-indigo-200 dark:border-indigo-800 bg-indigo-50 dark:bg-indigo-950 text-indigo-950 dark:text-indigo-100')}
                 </div>
 
                 {/* Link to Indicator */}
@@ -185,12 +172,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
 
               {/* Scale 3: Raça (31 requisitos) - I07 */}
               <div
-                onClick={() => setActiveCategory('raca')}
-                className={`cursor-pointer rounded-xl border p-6 bg-white dark:bg-stone-900 transition-all ${
-                  activeCategory === 'raca'
-                    ? 'ring-2 ring-amber-600 dark:ring-amber-400 border-amber-600 dark:border-amber-400 shadow-md'
-                    : 'border-stone-200 dark:border-stone-800 hover:border-stone-400'
-                }`}
+                className={`cursor-pointer rounded-xl border p-6 bg-white dark:bg-stone-900 transition-all border-amber-200 dark:border-amber-900/70 hover:border-amber-500 shadow-sm`}
               >
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <span className="text-xs font-mono font-semibold px-2 py-0.5 rounded bg-amber-50 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300">
@@ -219,7 +201,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                     <span>Escala 0–31</span>
                     <span className="font-mono text-amber-600 dark:text-amber-400">Linha de base</span>
                   </div>
-                  {requirementGrid('raca', 'border-amber-200 dark:border-amber-800/60 bg-amber-50/70 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 hover:border-amber-500')}
+                  {requirementGrid('raca', 'border-amber-200 dark:border-amber-800/60 bg-amber-50/70 dark:bg-amber-950/30 text-amber-800 dark:text-amber-300 hover:border-amber-500', 'border-amber-200 dark:border-amber-800 bg-amber-50 dark:bg-amber-950 text-amber-950 dark:text-amber-100')}
                 </div>
 
                 {/* Link to Indicator */}
@@ -241,43 +223,9 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
               </div>
             </div>
 
-            {/* Detailed Selected Scale Axes & I08 Longitudinal Evolution Card */}
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
-              {/* Eixos temáticos da escala selecionada (8 cols) */}
-              <div className="lg:col-span-8 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800 p-4 sm:p-6 shadow-xs">
-                <div className="flex items-center justify-between pb-3 border-b border-stone-100 dark:border-stone-800">
-                  <div>
-                    <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-400">
-                      Detalhamento Metodológico da Escala
-                    </span>
-                    <h4 className="text-base font-bold text-stone-900 dark:text-white">
-                      {IDE_REQUIREMENTS[activeCategory].nome} ({IDE_REQUIREMENTS[activeCategory].totalItens} requisitos)
-                    </h4>
-                  </div>
-                  <span className="text-xs px-2.5 py-1 rounded bg-stone-100 dark:bg-stone-800 text-stone-600 dark:text-stone-300 font-medium">
-                    Manual do Modelo IDE
-                  </span>
-                </div>
-
-                <p className="mt-3 text-xs text-stone-600 dark:text-stone-400 leading-relaxed">
-                  {IDE_REQUIREMENTS[activeCategory].descricao}
-                </p>
-                <div className="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-2">
-                  {IDE_MODEL_STRUCTURE.dimensoes.map((dimensao) => (
-                    <div key={dimensao.nome} className="rounded-lg border border-stone-200 dark:border-stone-700 p-3 bg-stone-50 dark:bg-stone-800/60">
-                      <div className="text-xs font-bold text-stone-900 dark:text-white">{dimensao.nome}</div>
-                      <div className="mt-1 text-[11px] leading-relaxed text-stone-500 dark:text-stone-400">
-                        {dimensao.temas.join(' • ')}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-
-              </div>
-
+            <div className="grid grid-cols-1 gap-5">
               {/* I08 Longitudinal Evolution Box (4 cols) */}
-              <div className="lg:col-span-4 rounded-xl bg-stone-900 text-white p-6 flex flex-col justify-between shadow-xs">
+              <div className="rounded-xl bg-stone-900 text-white p-6 flex flex-col justify-between shadow-xs">
                 <div>
                   <div className="flex flex-wrap items-center justify-between gap-2">
                     <span className="text-xs font-mono font-semibold text-amber-400">
@@ -309,7 +257,7 @@ export const MaturityIDE: React.FC<MaturityIDEProps> = ({ onOpenIndicator }) => 
                       onClick={() => onOpenIndicator(i08)}
                       className="w-full mt-2 py-2 px-3 rounded-lg bg-stone-800 hover:bg-stone-700 text-xs font-semibold text-stone-100 flex items-center justify-center gap-1 transition-colors"
                     >
-                      <span>Abrir ficha técnica I08</span>
+                      <span>Ver ficha I08</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </button>
                   )}
