@@ -1,4 +1,4 @@
-import { Priority, Periodicity } from './indicators';
+import { Periodicity } from './indicators';
 
 export type UserRole =
   | 'viewer'
@@ -123,10 +123,7 @@ export interface IndicatorDefinition {
   frequency: Periodicity;
   analysisUnit: string;
   targetDefinition: string;
-  priority: Priority;
   normativeTraceability: Reference[];
-  suggestedResponsible: ResponsibleParty[];
-  coreRecommended: boolean;
   observation?: string;
   interpretacao?: string;
   active: boolean;
