@@ -33,26 +33,12 @@ export const OFFICIAL_INDICATORS: IndicatorDefinition[] = INDICATORS.map((ind) =
   frequency: ind.periodicidade,
   analysisUnit: ind.unidadeAnalise,
   targetDefinition: ind.meta,
-  priority: ind.prioridade,
   normativeTraceability: [
     {
       source: 'Modelo IDE / ACT Rede Equidade',
       description: ind.rastreabilidade,
     },
   ],
-  suggestedResponsible: [
-    {
-      role: ind.responsavel,
-      instance: ind.responsavel.includes('Comitê')
-        ? 'ComiteCoordenador'
-        : ind.responsavel.includes('repositório')
-        ? 'GestaoRepositorio'
-        : ind.responsavel.includes('pontos focais')
-        ? 'PontosFocais'
-        : 'GT2',
-    },
-  ],
-  coreRecommended: ind.nucleoRecomendado,
   observation: ind.observacao,
   interpretacao: ind.interpretacao,
   active: true,
