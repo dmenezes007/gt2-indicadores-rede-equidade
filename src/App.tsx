@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { Header } from './components/Header';
 import { CommandBar } from './components/CommandBar';
-import { PerspectiveSelector } from './components/PerspectiveSelector';
 import { InstitutionProfile } from './components/InstitutionProfile';
 import { IndicatorAnalyticsView } from './components/IndicatorAnalyticsView';
 import { EvidenceExplorer } from './components/EvidenceExplorer';
@@ -32,7 +31,6 @@ import {
   MonitoringCycle,
   Measurement,
   Evidence,
-  Perspective,
   UserRole,
 } from './types/dataModels';
 import { FilterState, Indicator } from './types/indicators';
@@ -78,9 +76,6 @@ export default function App() {
   };
 
   // Layer 04 UX State
-  const [perspective, setPerspective] = useState<Perspective>(
-    () => (getInitialUrlParam('perspective', 'network') as Perspective) || 'network'
-  );
   const [selectedCycleId, setSelectedCycleId] = useState<string>(
     () => getInitialUrlParam('cycle', 'cycle-2026')
   );
@@ -122,20 +117,12 @@ export default function App() {
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
       url.searchParams.set('cycle', selectedCycleId);
-      url.searchParams.set('perspective', perspective);
-      if (perspective === 'indicator') {
-        url.searchParams.set('indicator', selectedIndicatorId);
-      } else {
-        url.searchParams.delete('indicator');
-      }
-      if (perspective === 'institution') {
-        url.searchParams.set('institution', selectedInstitutionId);
-      } else {
-        url.searchParams.delete('institution');
-      }
+      url.searchParams.delete('perspective');
+      url.searchParams.delete('indicator');
+      url.searchParams.delete('institution');
       window.history.replaceState({}, '', url.toString());
     }
-  }, [selectedCycleId, perspective, selectedIndicatorId, selectedInstitutionId]);
+  }, [selectedCycleId]);
 
   // Load baseline master data
   useEffect(() => {
@@ -293,25 +280,6 @@ export default function App() {
         }}
       />
 
-      {/* 02 — Perspective & Cycle Selector (Layer 04 UX) */}
-      <PerspectiveSelector
-        perspective={perspective}
-        onPerspectiveChange={setPerspective}
-        cycles={cycles}
-        selectedCycleId={selectedCycleId}
-        onCycleChange={setSelectedCycleId}
-        userRole={userRole}
-        onUserRoleChange={setUserRole}
-        demoMode={demoMode}
-        onToggleDemoMode={() => setDemoMode(!demoMode)}
-        institutions={institutions}
-        selectedInstitutionId={selectedInstitutionId}
-        onSelectInstitution={setSelectedInstitutionId}
-        indicators={indicatorDefinitions}
-        selectedIndicatorId={selectedIndicatorId}
-        onSelectIndicator={setSelectedIndicatorId}
-      />
-
       {/* 03 — Command Bar / filtros globais */}
       <CommandBar
         filters={filters}
@@ -327,8 +295,7 @@ export default function App() {
       {/* Main Content Areas based on Perspective */}
       <main className="flex-1 space-y-2">
         {/* PERSPECTIVA: REDE (Consolidated) */}
-        {perspective === 'network' && (
-          <>
+        <>
             {/* Matriz de Indicadores — primeira seção analítica */}
             {/* Analytical Matrix */}
             <AnalyticsMatrix
@@ -358,33 +325,6 @@ export default function App() {
             />
 
           </>
-        )}
-
-        {/* PERSPECTIVA: INSTITUIÇÃO */}
-        {perspective === 'institution' && (
-          <InstitutionProfile
-            data={institutionProfile}
-            indicators={indicatorDefinitions}
-            onOpenIndicator={handleOpenIndicatorById}
-            onOpenEvidence={(eviId) => {
-              setSelectedEvidenceId(eviId);
-              setEvidenceExplorerOpen(true);
-            }}
-          />
-        )}
-
-        {/* PERSPECTIVA: INDICADOR */}
-        {perspective === 'indicator' && currentIndicatorDef && (
-          <IndicatorAnalyticsView
-            indicator={currentIndicatorDef}
-            result={networkData?.results[currentIndicatorDef.id]}
-            cycleName={networkData?.cycle.name || 'Ciclo 2026'}
-            onOpenEvidence={(eviId) => {
-              setSelectedEvidenceId(eviId);
-              setEvidenceExplorerOpen(true);
-            }}
-          />
-        )}
       </main>
 
       {/* Technical Footer */}
@@ -427,14 +367,6 @@ export default function App() {
         indicators={indicatorDefinitions}
         institutions={institutions}
         cycles={cycles}
-        onSelectIndicator={(id) => {
-          setSelectedIndicatorId(id);
-          setPerspective('indicator');
-        }}
-        onSelectInstitution={(id) => {
-          setSelectedInstitutionId(id);
-          setPerspective('institution');
-        }}
         onSelectDimension={handleSelectDimension}
         onSelectCycle={setSelectedCycleId}
         onOpenReport={() => setReportOpen(true)}
